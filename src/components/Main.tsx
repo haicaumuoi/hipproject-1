@@ -21,6 +21,7 @@ function Main() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/projects" element={<Projects />}></Route>
       <Route path="/findProject" element={<FindProjects />}></Route>
+      <Route path="/" element={<FindProjects />}></Route>
       <Route path="/findProject/:id" element={<ProjectDetails />}></Route>
       <Route path="/postjob" element={<Postjob />}></Route>
       <Route path="/profile" element={<Profile />}></Route>
