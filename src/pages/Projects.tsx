@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Project } from '../../typing';
+import dateFormat from '../utils/functions/dateFormat';
 import { fetchProject } from '../utils/functions/fetchProject';
-import data from '../utils/functions/testing';
 
 function Projects() {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    fetchProject().then((res) => {
+      setProjects(res);
+    });
+  }, []);
+
   return (
     <div className="w-screen h-fit bg-gray-50 flex justify-center items-center my-20">
       <div className="w-9/12 h-5/6">
@@ -25,12 +34,12 @@ function Projects() {
           </svg>
         </div>
         <div>
-          {data.map((item) => (
+          {projects.map((item) => (
             <div className="w-full h-20 shadow-sm flex justify-between px-10 my-5 items-center">
               <div className="font-semibold text-xl">{item.Project_Name}</div>
               <div className="flex">
                 <p className="pr-10">
-                  By {item.User_Email} on {item.Post_Date}
+                  By {item.Project_Id} on {dateFormat(item.Post_Date)}
                 </p>
                 <Link to={`/findProject/${item._id}`}>
                   <button

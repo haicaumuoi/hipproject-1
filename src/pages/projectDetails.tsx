@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Project } from '../../typing';
 import JobDescription from '../components/JobPage/JobDescription';
 import JobFull from '../components/JobPage/JobFull';
 import SearchBar from '../components/SearchBar';
+import dateFormat from '../utils/functions/dateFormat';
+import { fetchProject } from '../utils/functions/fetchProject';
 import data from '../utils/functions/testing';
 
 function ProjectDetails() {
   const jobData = useParams();
-  const project = data.find((obj) => {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    fetchProject().then((res) => {
+      setProjects(res);
+    });
+  }, []);
+  const project = projects.find((obj) => {
     return obj._id === jobData.id;
   });
 
@@ -21,14 +31,14 @@ function ProjectDetails() {
         <div className="w-9/12 h-full flex justify-start mt-5 pt-10">
           <JobFull
             jobName={project?.Project_Name}
-            email={project?.User_Email}
+            email={project?.User_id}
             school={project?.User_University}
             city={project?.Project_Location}
-            time={project?.Post_Date}
-            numberOfPeople={project?.Member_Amount}
+            time={dateFormat(project?.Post_Date)}
+            numberOfPeople={project?.Employee_Amount}
             typeOfJob={project?.Project_Field}
           />
-          <JobDescription desc={project?.Post_Date} />
+          <JobDescription desc={dateFormat(project?.Post_Date)} />
         </div>
       </div>
     </div>
