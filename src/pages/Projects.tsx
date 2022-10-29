@@ -13,6 +13,8 @@ function Projects() {
     });
   }, []);
 
+  console.log(projects);
+
   return (
     <div className="w-screen h-fit bg-gray-50 flex justify-center items-center my-20">
       <div className="w-9/12 h-5/6">
@@ -39,14 +41,14 @@ function Projects() {
               <div className="font-semibold text-xl">{item.Project_Name}</div>
               <div className="flex">
                 <p className="pr-10">
-                  By {item.Project_Id} on {dateFormat(item.Post_Date)}
+                  By {item.User_Email} on {dateFormat(item.Post_Date)}
                 </p>
                 <Link to={`/findProject/${item._id}`}>
                   <button
                     type="button"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   >
-                    Check Project
+                    View Project
                   </button>
                 </Link>
               </div>

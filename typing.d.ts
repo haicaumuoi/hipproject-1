@@ -15,6 +15,7 @@ export interface Project {
   Project_Field: string;
   Project_Criteria: ProjectCriteria;
   User_id: string;
+  User_Email: string;
   User_University: string;
   End_Date: Date;
 }

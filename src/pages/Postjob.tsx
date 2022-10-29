@@ -1,7 +1,6 @@
 import React from 'react';
-import { Fragment, useState } from 'react';
-import { Listbox, Transition, Combobox } from '@headlessui/react';
-// import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
+import { Autocomplete, TextField } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
 import logo from '../assets/logos/logo.png';
@@ -11,24 +10,24 @@ import { fetchProject } from '../utils/functions/fetchProject';
 
 function Postjob() {
   const fields = [
-    { id: 1, name: 'Computer Science', unavailable: true },
-    { id: 2, name: 'Information Technology', unavailable: false },
-    { id: 3, name: 'Electrical Engineering', unavailable: false },
-    { id: 4, name: 'Mechanical Engineering', unavailable: false },
-    { id: 5, name: 'Chemical Engineering', unavailable: false },
-    { id: 6, name: 'Computer Science', unavailable: false },
-    { id: 7, name: 'Information Technology', unavailable: false },
-    { id: 8, name: 'Electrical Engineering', unavailable: false },
-    { id: 9, name: 'Mechanical Engineering', unavailable: false },
-    { id: 10, name: 'Chemical Engineering', unavailable: false },
-    { id: 11, name: 'Computer Science', unavailable: false },
-    { id: 12, name: 'Information Technology', unavailable: false },
-    { id: 13, name: 'Electrical Engineering', unavailable: false },
-    { id: 14, name: 'Mechanical Engineering', unavailable: false },
-    { id: 15, name: 'Chemical Engineering', unavailable: false },
+    'Computer Science',
+    'Information Technology',
+    'Electrical Engineering',
+    'Mechanical Engineering',
+    'Chemical Engineering',
+    'Computer Science',
+    'Information Technology',
+    'Electrical Engineering',
+    'Mechanical Engineering',
+    'Chemical Engineering',
+    'Computer Science',
+    'Information Technology',
+    'Electrical Engineering',
+    'Mechanical Engineering',
+    'Chemical Engineering',
   ];
 
-  const [selectedField, setSelectedField] = useState(fields[0]);
+  const [selectedField, setSelectedField] = useState(['']);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(addDays(new Date(), 1));
@@ -39,13 +38,39 @@ function Postjob() {
   const [skill, setSkill] = useState('');
   const [desc, setDesc] = useState('');
 
-  const jobField = selectedField.name;
+  // const [inputFields, setInputFields] = useState([
+  //   {
+  //     selectedField: [''],
+  //     skill: '',
+  //   },
+  // ]);
+
+  // const addInputField = () => {
+  //   setInputFields([
+  //     ...inputFields,
+  //     {
+  //       selectedField: [''],
+  //       skill: '',
+  //     },
+  //   ]);
+  // };
+  // const removeInputFields = (index: number) => {
+  //   const rows = [...inputFields];
+  //   rows.splice(index, 1);
+  //   setInputFields(rows);
+  // };
+  // const handleChange = (index: number, evnt: any) => {
+  //   const { name, value } = evnt.target;
+  //   const list = [...inputFields];
+  //   list[index][name] = value;
+  //   setInputFields(list);
+  // };
 
   const dataReturn = {
     name,
     uni,
     location,
-    jobField,
+    selectedField,
     startDate,
     endDate,
     desc,
@@ -94,7 +119,7 @@ function Postjob() {
             />
           </div>
           <div>
-            <h1>Time to finish </h1>
+            <h1>Project Duration</h1>
             <DatePicker
               selected={startDate}
               onChange={(date: Date) => setStartDate(date)}
@@ -115,65 +140,8 @@ function Postjob() {
               className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
             />
           </div>
+
           <div className="border border-black">
-            <div>
-              <h1>Field Needed</h1>
-              <Listbox value={selectedField} onChange={setSelectedField}>
-                <div className="relative bg-gray-100 flex justify-start items-center border border-black rounded-lg h-12 w-full xl:w-11/12 mt-2 ">
-                  <Listbox.Button className="relative w-full bg-gray-100 cursor-default rounded-lg  py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                    <span className="block truncate">{selectedField.name}</span>
-                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                      {/* <ChevronDownIcon
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      /> */}
-                    </span>
-                  </Listbox.Button>
-                  <Transition
-                    as={Fragment}
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Listbox.Options className="absolute top-12 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm overflow-x-hidden">
-                      {fields.map((field, fieldIdx) => (
-                        <Listbox.Option
-                          key={fieldIdx}
-                          className={({ active }) =>
-                            `relative cursor-pointer select-none py-2 pl-10 pr-4 flex justify-between hover:scale-105 transition duration-150 ${
-                              active
-                                ? 'bg-amber-100 text-amber-900'
-                                : 'text-gray-900'
-                            }`
-                          }
-                          value={field}
-                        >
-                          {({ selected }) => (
-                            <>
-                              <span
-                                className={`block truncate ${
-                                  selected ? 'font-medium' : 'font-normal'
-                                }`}
-                              >
-                                {field.name}
-                              </span>
-                              {selected ? (
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                  {/* <CheckIcon
-                                    className="h-5 w-5 "
-                                    aria-hidden="true"
-                                  /> */}
-                                </span>
-                              ) : null}
-                            </>
-                          )}
-                        </Listbox.Option>
-                      ))}
-                    </Listbox.Options>
-                  </Transition>
-                </div>
-              </Listbox>
-            </div>
             <div>
               <h1>Position Needed</h1>
               <input
@@ -184,9 +152,30 @@ function Postjob() {
                 value={skill}
                 onChange={(e) => setSkill(e.target.value)}
               />
+
+              <h1>Skill Needed</h1>
+              <Autocomplete
+                multiple
+                id="tags-standard"
+                options={fields}
+                getOptionLabel={(option) => option}
+                defaultValue={[fields[13]]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Multiple values"
+                    placeholder="Favorites"
+                  />
+                )}
+                onChange={(e, value) => setSelectedField(value)}
+              />
             </div>
-            <button>Add Field</button>
+            <div>
+              <button>Add Field</button>{' '}
+            </div>
           </div>
+
           <div></div>
           <div>
             <h1>Project Description </h1>
