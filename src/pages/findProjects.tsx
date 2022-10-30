@@ -6,14 +6,14 @@ import { Project } from '../../typing';
 
 import dateFormat from '../utils/functions/dateFormat';
 import data from '../utils/functions/testing';
-import { Link } from 'react-router-dom';
-
-type Props = {
-  projects: Project[];
-};
+import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const FindProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const { state } = useLocation();
+  const user = state;
+  console.log(user)
 
   useEffect(() => {
     fetchProject().then((res) => {
