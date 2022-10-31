@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useRef } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
 import logo from '../assets/logos/logo.png';
