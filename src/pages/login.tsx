@@ -6,9 +6,10 @@ import axios from "axios";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useNavigate } from "react-router-dom";
-import { Button, Snackbar } from "@mui/material";
+import {  Snackbar } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import data from "../utils/functions/testing";
+import { userSlice } from "../redux/UserReducer";
+import { useDispatch } from "react-redux";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -29,6 +30,7 @@ function Login() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const loginGoogle = async (email: string, googleId: string) => {
     const respone = await client
@@ -38,9 +40,8 @@ function Login() {
       });
     const data = await respone.data.data;
     setUser(data);
-    console.log(user);
     respone.status === 200 ? setIsSignedIn(true) : setIsSignedIn(false);
-    console.log(isSignedIn);
+    dispatch(userSlice.actions.userLogIn(data));
     isSignedIn ? navigate("/", { state: {user} }) : handleClick(); 
   };
 
@@ -73,7 +74,6 @@ function Login() {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 

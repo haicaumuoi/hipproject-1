@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Project } from '../../typing';
 import dateFormat from '../utils/functions/dateFormat';
 import { fetchProject } from '../utils/functions/fetchProject';
 
 function Projects() {
+
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -12,8 +13,6 @@ function Projects() {
       setProjects(res);
     });
   }, []);
-
-  console.log(projects);
 
   return (
     <div className="w-screen h-fit bg-gray-50 flex justify-center items-center my-20">

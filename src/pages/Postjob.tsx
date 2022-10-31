@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
@@ -7,6 +7,11 @@ import logo from '../assets/logos/logo.png';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchProject } from '../utils/functions/fetchProject';
+
+interface ListData {
+  position: string[];
+  skill: string;
+}
 
 function Postjob() {
   const fields = [
@@ -27,57 +32,61 @@ function Postjob() {
     'Chemical Engineering',
   ];
 
-  const [selectedField, setSelectedField] = useState(['']);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(addDays(new Date(), 1));
 
+
   const [name, setName] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
   const [uni, setUni] = useState('');
   const [location, setLocation] = useState('');
-  const [skill, setSkill] = useState('');
   const [desc, setDesc] = useState('');
 
-  // const [inputFields, setInputFields] = useState([
-  //   {
-  //     selectedField: [''],
-  //     skill: '',
-  //   },
-  // ]);
+  const [inputFields, setInputFields] = useState([
+    {
+      position: [''],
+      skill: '', 
+    },
+  ]);
 
-  // const addInputField = () => {
-  //   setInputFields([
-  //     ...inputFields,
-  //     {
-  //       selectedField: [''],
-  //       skill: '',
-  //     },
-  //   ]);
-  // };
-  // const removeInputFields = (index: number) => {
-  //   const rows = [...inputFields];
-  //   rows.splice(index, 1);
-  //   setInputFields(rows);
-  // };
-  // const handleChange = (index: number, evnt: any) => {
-  //   const { name, value } = evnt.target;
-  //   const list = [...inputFields];
-  //   list[index][name] = value;
-  //   setInputFields(list);
-  // };
+  const addInputField = () => {
+    setInputFields([
+      ...inputFields,
+      {
+      position: [''], 
+      skill: '',
+      },
+    ]);
+  };
+  const removeInputFields = (index: number) => {
+    const rows = [...inputFields];
+    rows.splice(index, 1);
+    setInputFields(rows);
+  };
+
+  const handleChange = (index: number, evnt: any) => {
+    const { name, value, id } = evnt.target;
+    console.log(id, name, value);
+    const list = [...inputFields];
+    // @ts-ignore
+    list[index][name] = value;
+    setInputFields(list);
+  };
 
   const dataReturn = {
     name,
+    shortDesc,
     uni,
     location,
-    selectedField,
     startDate,
     endDate,
     desc,
-    skill,
+    inputFields,
   };
 
   fetchProject();
+  const ref0 = useRef();
 
   return (
     <div className="flex justify-center mt-20">
@@ -93,6 +102,17 @@ function Postjob() {
               placeholder='e.g. "Build a website for my business"'
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <h1>Your Project Short Description</h1>
+            <input
+              className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+              type="text"
+              required
+              placeholder='Short Description For People to find your project interesting'
+              value={shortDesc}
+              onChange={(e) => setShortDesc(e.target.value)}
             />
           </div>
 
@@ -141,40 +161,62 @@ function Postjob() {
             />
           </div>
 
-          <div className="border border-black">
-            <div>
-              <h1>Position Needed</h1>
-              <input
-                className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
-                type="text"
-                required
-                placeholder='e.g. "React, Excel, Photoshop, etc."'
-                value={skill}
-                onChange={(e) => setSkill(e.target.value)}
-              />
+        {inputFields.map((inputField, index) => (
+           <div className="border border-black" key={index}>
+           <div>
+             <h1>Position Needed</h1>
+             <input
+               className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+               type="text"
+               required
+               placeholder='e.g. "React, Excel, Photoshop, etc."'
+               value={inputField.position}
+               onChange={(e) => handleChange(index, e)}
+               name='position'
+             />
 
-              <h1>Skill Needed</h1>
-              <Autocomplete
-                multiple
-                id="tags-standard"
-                options={fields}
-                getOptionLabel={(option) => option}
-                defaultValue={[fields[13]]}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Multiple values"
-                    placeholder="Favorites"
-                  />
-                )}
-                onChange={(e, value) => setSelectedField(value)}
-              />
-            </div>
-            <div>
-              <button>Add Field</button>{' '}
-            </div>
-          </div>
+             <h1>Skill Needed</h1>
+             {/* <Autocomplete
+               multiple
+               id="tags-standard"
+               ref={ref0}
+               options={fields}
+               getOptionLabel={(option) => option}
+               renderInput={(params) => (
+                 <TextField
+                   {...params}
+                   variant="standard"
+                   label="Multiple values"
+                   placeholder="Favorites"
+                 />
+               )}
+               onChange={(e) => handleChange(index, e)}
+               componentName='skill'
+             /> */}
+             <input
+               className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+               type="text"
+               required
+               placeholder='e.g. "React, Excel, Photoshop, etc."'
+               value={inputField.skill}
+               onChange={(e) => handleChange(index, e)}
+               name='skill'
+             />
+           </div>
+           <div>
+             <button onClick={addInputField}>Add Field</button>{' '}
+           </div>
+           <div>
+             <button  onClick={() => {
+              removeInputFields(index)
+             }}>Remove Field</button>{' '}
+           </div>
+           {/* <div>
+             <button onClick={removeInputFields}>Remove Field</button>{' '}
+           </div> */}
+         </div>
+        ))}
+         
 
           <div></div>
           <div>
@@ -219,3 +261,5 @@ function Postjob() {
 }
 
 export default Postjob;
+
+

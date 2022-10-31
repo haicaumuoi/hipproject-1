@@ -4,7 +4,7 @@ import './App.css';
 import { Route, useLocation } from 'react-router-dom';
 import DashboardLayout from './components/DashboardLayout';
 
-function App({ Component, pageProps }: any) {
+function App() {
   const location = useLocation();
   console.log(location);
   return (

@@ -5,8 +5,7 @@ import Main from '../Main';
 
 
 export default function DashboardLayout() {
-  const location = useLocation();
-
+  const location = useLocation()
 
   const showHeader = location.pathname === '/login' ? false : true;
   return (
