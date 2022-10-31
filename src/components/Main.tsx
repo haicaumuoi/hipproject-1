@@ -21,7 +21,7 @@ function Main() {
       <Route path="/findProject/:id" element={<ProjectDetails />}></Route>
       <Route path="/projects" element={
         <ProtectedRoute user={user}>
-          <Projects />
+          <Projects/>
         </ProtectedRoute>
       }></Route>
       <Route path="/postjob" element={

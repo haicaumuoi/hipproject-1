@@ -7,10 +7,6 @@ import logo from '../assets/logos/logo.png';
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchProject } from '../utils/functions/fetchProject';
 
-interface ListData {
-  position: string[];
-  skill: string;
-}
 
 function Postjob() {
   const fields = [
@@ -58,17 +54,16 @@ function Postjob() {
       },
     ]);
   };
-  const removeInputFields = (index: number) => {
+  const removeInputFields = (index) => {
     const rows = [...inputFields];
     rows.splice(index, 1);
     setInputFields(rows);
   };
 
-  const handleChange = (index: number, evnt: any) => {
+  const handleChange = (index, evnt) => {
     const { name, value, id } = evnt.target;
     console.log(id, name, value);
     const list = [...inputFields];
-    // @ts-ignore
     list[index][name] = value;
     setInputFields(list);
   };
@@ -141,7 +136,7 @@ function Postjob() {
             <h1>Project Duration</h1>
             <DatePicker
               selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
+              onChange={(date) => setStartDate(date)}
               selectsStart
               startDate={startDate}
               minDate={startDate}
@@ -150,7 +145,7 @@ function Postjob() {
             />
             <DatePicker
               selected={endDate}
-              onChange={(date: Date) => setEndDate(date)}
+              onChange={(date) => setEndDate(date)}
               selectsEnd
               startDate={addDays(startDate, 1)}
               endDate={endDate}
