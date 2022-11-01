@@ -98,6 +98,7 @@ function Login() {
           onFailure={onFailure}
           cookiePolicy={"single_host_origin"}
           isSignedIn={true}
+          hostedDomain={'hipproject.netlify.app'}
           className="flex items-center w-11/12 h-12 rounded-lg mx-auto text-center border-gray-300 border mt-5 justify-center cursor-pointer hover:bg-slate-100 transition-all text-black"
         />
 
