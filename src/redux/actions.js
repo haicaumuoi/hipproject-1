@@ -10,13 +10,30 @@ export const userLogIn = (data) => {
 }
 }
 
-export const addProjectList = (data) => {
+export const initProjectList = (data) => {
     return {
-    type: 'projectList/projectListAdd',
+    type: 'projectList/projectListInit',
     payload: {
         projectList: data,
     }
 }
+}
+
+export const addProject = (data) => {
+    return {
+    type: 'projectList/addProject',
+    payload: {
+        projectList: data,
+    }
+    }
+}
+export const sendApplication = (data) => {
+    return {
+    type: 'application/sendApplication',
+    payload: {
+        application: data,
+    }
+    }
 }
 
 export const searchProject = (data) => {
@@ -24,6 +41,14 @@ export const searchProject = (data) => {
     type: 'searchList/searchProject',
     payload: {
         search: data,
+    }
+}
+}
+export const addApplicationToProject = (data) => {
+    return {
+    type: 'projectList/addApplicationToProject',
+    payload: {
+        projectList: data,
     }
 }
 }

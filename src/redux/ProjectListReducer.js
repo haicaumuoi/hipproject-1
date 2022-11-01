@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { fetchProject } from '../utils/functions/fetchProject';
 
 
 export const projectListSlice = createSlice({
@@ -7,11 +8,17 @@ export const projectListSlice = createSlice({
         projectList: [],
     },
     reducers: {
-        addProjectList: (state, action) => {
+        initProjectList: (state, action) => {
             state.projectList = action.payload;
+        },
+        addProject: (state, action) => {
+            state.projectList.push(action.payload);
         },
         searchProjectList: (state, action) => {
             state.projectList = action.payload;
+        },
+        addApplicationToProject: (state, action) => {
+            state.projectList = state.projectList.find(project => project._id === action.payload.projectId).applications.push(action.payload.application);
         }
     }
 })

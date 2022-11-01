@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { Project } from '../../typing';
-import dateFormat from '../utils/functions/dateFormat';
-import { fetchProject } from '../utils/functions/fetchProject';
+import React, { useState } from 'react';
 import ProjectState from '../utils/UI/ProjectState';
 
 function Projects() {

@@ -1,35 +1,21 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
 import logo from '../assets/logos/logo.png';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { fetchProject } from '../utils/functions/fetchProject';
+import {  useSelector } from 'react-redux';
+import axios from 'axios';
 
 
 function Postjob() {
-  const fields = [
-    'Computer Science',
-    'Information Technology',
-    'Electrical Engineering',
-    'Mechanical Engineering',
-    'Chemical Engineering',
-    'Computer Science',
-    'Information Technology',
-    'Electrical Engineering',
-    'Mechanical Engineering',
-    'Chemical Engineering',
-    'Computer Science',
-    'Information Technology',
-    'Electrical Engineering',
-    'Mechanical Engineering',
-    'Chemical Engineering',
-  ];
 
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(addDays(new Date(), 1));
+  const user = useSelector((state) => state.user);
+  const userID = user._id;
 
 
   const [name, setName] = useState('');
@@ -37,6 +23,8 @@ function Postjob() {
   const [uni, setUni] = useState('');
   const [location, setLocation] = useState('');
   const [desc, setDesc] = useState('');
+  const participants = [];
+  const applications = [];
 
   const [inputFields, setInputFields] = useState([
     {
@@ -69,6 +57,7 @@ function Postjob() {
   };
 
   const dataReturn = {
+    userID,
     name,
     shortDesc,
     uni,
@@ -77,13 +66,28 @@ function Postjob() {
     endDate,
     desc,
     inputFields,
+    participants,
+    applications
   };
 
+  // const dispatch = useDispatch();
+  const client = axios.create({
+    baseURL: "https://hipproback.herokuapp.com",
+  });
   
 
+  const handlePostJob = async () => {
+  const respone = await client
+    .post("/api/prj/create", {
+      data: dataReturn
+    });
+    respone.status === 200 ? console.log('success') : console.log('failed');
+    // dispatch(projectListSlice.actions.addProject(dataReturn));
+  }
+  
   return (
     <div className="flex justify-center mt-20">
-      <form className="flex justify-between w-8/12 h-screen" >
+      <div className="flex justify-between w-8/12 h-screen" >
         <div className="space-y-5 font-semibold text-lg xl:w-7/12">
           <div className=" text-4xl ">Create a project</div>
           <div>
@@ -223,9 +227,9 @@ function Postjob() {
             />
           </div>
           <button
-            onClick={() => {
-              console.log(dataReturn);
-            }}
+            onClick={
+              handlePostJob
+            }
             className="w-11/12 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md "
           >
             <h1 className="mr-2">Post Job</h1>
@@ -248,7 +252,7 @@ function Postjob() {
         <div className="hidden xl:flex justify-end items-center">
           <img src={logo} alt="logos" className="w-96 h-96" />
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ function NotFoundNoti() {
           This is where we’ll notify you about your job applications and other
           useful information to help you with your job search.
         </h1>
-        <Link to={'findProject'}>
+        <Link to={'/findProject'}>
           <button className="w-72 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md my-3">
             Find a Project
           </button>

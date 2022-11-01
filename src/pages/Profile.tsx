@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import EditIcon from '../utils/UI/EditIcon';
 
 function Profile() {
+  const user = useSelector((state: any) => state.user);
+
   return (
     <div className="flex justify-center mt-5 ">
       <div className="flex flex-col justify-start items-start w-10/12 xl:w-[33%] h-screen ">
@@ -33,7 +36,7 @@ function Profile() {
           <div className="font-semibold text-lg my-2">Contact Information</div>
           <div className="text-gray-600 space-y-1 pt-2">
             <div>Armit Nair</div>
-            <div>abcdxyz123@gmail.com</div>
+            <div>{user.email}</div>
             <div>12345678911</div>
           </div>
           <EditIcon />

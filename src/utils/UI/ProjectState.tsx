@@ -9,14 +9,18 @@ interface jobFullProps {
 
 function ProjectState( {state}: jobFullProps) {
 
-    const projectList = useSelector((state: any) => state.projectList);
+    const projectList = useSelector((state: any) => state.projectList.projectList);
     const user = useSelector((state: any) => state.user);
+
+    const project = projectList.filter((project: any) => project.User_Id === '003')
+
+    console.log(projectList)
 
   switch(state){
     case true:
         return(
             <div>
-            {projectList.projectList.map((item:any) => (
+            {projectList.map((item:any) => (
             <div className="w-full h-20 shadow-sm flex justify-between px-10 my-5 items-center">
           <div className="font-semibold text-xl">{item.Project_Name}</div>
           <div className="flex items-center">
@@ -38,24 +42,21 @@ function ProjectState( {state}: jobFullProps) {
                       >
                         Decline
                       </button>
-            
           </div>
         </div>
       ))}
     </div>
         )
     default: 
-           
             return (
                 <div>
-              {projectList.projectList.map((item:any) => (
+              {project.map((item:any) => (
                 <div className="w-full h-20 shadow-sm flex justify-between px-10 my-5 items-center">
                   <div className="font-semibold text-xl">{item.Project_Name}</div>
-                  <div className="flex">
+                  <div className="flex items-center">
                     <p className="pr-10">
-                      By {item.User_Email} on {dateFormat(item.Post_Date)}
+                      By {item.User_Name} on {dateFormat(item.Post_Date)}
                     </p>
-                    
                     <Link to={`/findProject/${item._id}`}>
               <button
                 type="button"

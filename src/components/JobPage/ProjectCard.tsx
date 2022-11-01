@@ -12,16 +12,12 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({
-  projectId,
   projectName,
   projectSchool,
   projectCity,
   projectTime,
   projectSkills,
   projectField,
-  projectCriteria1,
-  projectCriteria2,
-  projectCriteria3,
 }: ProjectCardProps) {
   return (
     // <Link to={`/findProject/${projectId}`}>

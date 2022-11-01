@@ -1,7 +1,10 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { applicationSlice } from "../../redux/Application";
+import { projectListSlice } from "../../redux/ProjectListReducer";
 
 interface jobFullProps {
+  projectId: string | undefined;
   jobName: string | undefined;
   email: string | undefined;
   school: string | undefined;
@@ -12,6 +15,7 @@ interface jobFullProps {
 }
 
 function JobFull({
+  projectId,
   jobName,
   email,
   school,
@@ -22,6 +26,16 @@ function JobFull({
 }: jobFullProps) {
 
   const user = useSelector((state: any) => state.user);
+  const userID = user._id;
+  const status = 'pending';
+  const projectRole = 'data analysis';
+  const application = { userID, projectId, status, projectRole };
+  const applicationToProject = { application, projectId };
+  const dispatch = useDispatch();
+  const sendApplicationHandle = () => {
+    dispatch(applicationSlice.actions.sendApplication(application));
+    dispatch(projectListSlice.actions.addApplicationToProject(applicationToProject));
+  }
 
   return (
     <div className="w-full  my-1 h-full xl:pr-10 space-y-2">
@@ -63,7 +77,7 @@ function JobFull({
         <div className="flex">
           <div>Data Analysis</div>
           <div>Python, Big Data, Web Scraping</div> 
-          <button className="w-56 xl:w-72 xl:h-10 h-12 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
+          <button className="w-56 xl:w-72 xl:h-10 h-12 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md" onClick={sendApplicationHandle}>
             Apply Now
           </button>
         </div>
