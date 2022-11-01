@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Project } from '../../typing';
 import JobDescription from '../components/JobPage/JobDescription';
@@ -10,14 +11,9 @@ import data from '../utils/functions/testing';
 
 function ProjectDetails() {
   const jobData = useParams();
-  const [projects, setProjects] = useState<Project[]>([]);
 
-  useEffect(() => {
-    fetchProject().then((res) => {
-      setProjects(res);
-    });
-  }, []);
-  const project = projects.find((obj) => {
+  const projectList = useSelector((state: any) => state.projectList);
+  const project = projectList.projectList.find((obj:any) => {
     return obj._id === jobData.id;
   });
 
