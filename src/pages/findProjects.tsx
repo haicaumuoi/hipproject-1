@@ -19,7 +19,6 @@ const FindProjects = () => {
   const dispatch = useDispatch();
   dispatch(projectListSlice.actions.addProjectList(projects));
   const projectList = useSelector((state: any) => state.projectList);
-  console.log(projectList.projectList);
 
   useEffect(() => {
     fetchProject().then((res) => {
@@ -27,7 +26,8 @@ const FindProjects = () => {
     });
   }, []);
 
- 
+  const searchProject = useSelector((state: any) => state.searchList);
+  console.log(searchProject);
 
   return (
     <div className="flex flex-col items-center h-full justify-start">

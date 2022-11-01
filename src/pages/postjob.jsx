@@ -79,12 +79,11 @@ function Postjob() {
     inputFields,
   };
 
-  fetchProject();
-  const ref0 = useRef();
+  
 
   return (
     <div className="flex justify-center mt-20">
-      <div className="flex justify-between w-8/12 h-screen ">
+      <form className="flex justify-between w-8/12 h-screen" >
         <div className="space-y-5 font-semibold text-lg xl:w-7/12">
           <div className=" text-4xl ">Create a project</div>
           <div>
@@ -249,7 +248,7 @@ function Postjob() {
         <div className="hidden xl:flex justify-end items-center">
           <img src={logo} alt="logos" className="w-96 h-96" />
         </div>
-      </div>
+      </form>
     </div>
   );
 }

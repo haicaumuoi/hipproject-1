@@ -1,5 +1,4 @@
 import indeedLogo from "../assets/logos/logo.png";
-import googleLogo from "../assets/logos/google.svg";
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";

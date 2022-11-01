@@ -9,11 +9,21 @@ export const userLogIn = (data) => {
     }
 }
 }
+
 export const addProjectList = (data) => {
     return {
     type: 'projectList/projectListAdd',
     payload: {
         projectList: data,
+    }
+}
+}
+
+export const searchProject = (data) => {
+    return {
+    type: 'searchList/searchProject',
+    payload: {
+        search: data,
     }
 }
 }

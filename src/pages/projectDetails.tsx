@@ -13,6 +13,7 @@ function ProjectDetails() {
   const jobData = useParams();
 
   const projectList = useSelector((state: any) => state.projectList);
+  
   const project = projectList.projectList.find((obj:any) => {
     return obj._id === jobData.id;
   });
@@ -24,13 +25,13 @@ function ProjectDetails() {
       </div>
 
       <div className="w-full border-t border-t-gray-200 h-full flex justify-center">
-        <div className="w-9/12 h-full flex justify-start mt-5 pt-10">
+        <div className="w-9/12 h-full flex flex-col justify-start mt-5 pt-10">
           <JobFull
             jobName={project?.Project_Name}
             email={project?.User_id}
             school={project?.User_University}
             city={project?.Project_Location}
-            time={dateFormat(project?.Post_Date)}
+            time={`${dateFormat(project?.Post_Date)} - ${dateFormat(project?.End_Date)}`}
             numberOfPeople={project?.Employee_Amount}
             typeOfJob={project?.Project_Field}
           />
