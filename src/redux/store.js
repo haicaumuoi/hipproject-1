@@ -5,12 +5,13 @@ import { projectListSlice } from "./ProjectListReducer";
 import { searchListSlice } from "./SearchListReducer";
 import { applicationSlice } from "./Application";
 import { messageSlice } from "./messageReducer";
-
+import { userListSlice } from "./UserListReducer";
 
 
 const store = configureStore({
     reducer: {
         user: userSlice.reducer,
+        userList: userListSlice.reducer,
         projects: projectSlice.reducer,
         projectList: projectListSlice.reducer,
         searchList: searchListSlice.reducer,

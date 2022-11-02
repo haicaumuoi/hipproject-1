@@ -3,28 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { applicationSlice } from "../../redux/Application";
 import { projectListSlice } from "../../redux/ProjectListReducer";
+import dateFormat from "../../utils/functions/dateFormat";
+import JobDescription from "./JobDescription";
 
 interface jobFullProps {
   projectId: string | undefined;
   jobName: string | undefined;
-  email: string | undefined;
+  numberOfPeople: string | undefined;
+  jobField: Array<string> | undefined;
+  desc: string | undefined;
   school: string | undefined;
   city: string | undefined;
-  time: string | undefined;
-  numberOfPeople: string | undefined;
-  typeOfJob: string | undefined;
-  jobField: Array<string> | undefined;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
 }
 
 function JobFull({
   projectId,
   jobName,
-  email,
-  school,
-  city,
-  time,
   jobField,
-  typeOfJob,
+  numberOfPeople,
+  city,
+  startDate,
+  endDate,
+  school,
+  desc
 }: jobFullProps) {
 
   const user = useSelector((state: any) => state.user);
@@ -55,16 +58,10 @@ function JobFull({
      : console.log('error');
   }
 
-  console.log(jobField)
 
   return (
-    <div className="w-full  my-1 h-full xl:pr-10 space-y-2">
-      <div className="text-2xl font-bold mb-1">{jobName}</div>
-      <div className="text-blue-800">{email}</div>
-      <div>{city}</div>
-      <div>{time}</div>
-
-
+    <div className="w-8/12 my-1 h-full xl:pr-10 space-y-4">
+      <div className="text-3xl font-bold mb-1">{jobName}</div>
       {user.email === '' ? 
         <Link to={'/login'}>
           <div className="flex flex-col"> 
@@ -76,51 +73,49 @@ function JobFull({
               Apply Now
             </button>
           </div>
-          ))}
-          
-          
+          ))}  
       </div>
-
         </Link>
         : <div className="flex flex-col"> 
          {jobField?.map((item: any) => (
-            <div className="flex">
-            <div>{item.position}</div>
-            <div>{item.skill}</div> 
-            <button className="w-56 xl:w-72 xl:h-10 h-12 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md" onClick={sendApplicationHandle}>
+           <div className="flex items-center justify-between my-2">
+            <div className="text-lg mr-5">Position: {item.position}</div>
+            <div className="text-lg">{item.skill}</div> 
+            <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md" onClick={sendApplicationHandle}>
               Apply Now
             </button>
           </div>
           ))}
-
-
         </div>}
+        <div className="text-lg">This project lasted from {dateFormat(startDate)} to {dateFormat(endDate)}</div>
+        <JobDescription desc={desc} />
 
-      {/* </Link> */}
-      <div className="text-xl font-semibold my-3">Project Details</div>
-      <div className="font-semibold mb-2">School</div>
-      <div> {school}</div>
+
+      <div className="font-semibold mb-2 text-lg">School</div>
+      <div>{school}</div>
       {user.email !== '' ? 
       <div>
-      <div className="font-semibold my-2 ">Number Of People in Group</div>
-      <div>
-        <div className="flex items-center">
+      <div className="font-semibold my-2 text-lg">Number Of People in Group</div>
+      <div className="space-y-2 mt-4">
+        <div className="flex items-center space-x-2">
           <img className="w-10 h-10" src={user.avatar} alt="avt" />
           <p>{user.email}</p>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <img className="w-10 h-10" src={user.avatar} alt="avt" />
           <p>{user.email}</p>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <img className="w-10 h-10" src={user.avatar} alt="avt" />
           <p>{user.email}</p>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <img className="w-10 h-10" src={user.avatar} alt="avt" />
           <p>{user.email}</p>
         </div>
-      </div></div> : null}
+      </div></div> : <div className="flex items-center">
+          <p>There are {4} people working in this project</p>
+        </div>}
     
     </div>
   );

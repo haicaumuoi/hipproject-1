@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import JobDescription from '../components/JobPage/JobDescription';
 import JobFull from '../components/JobPage/JobFull';
-import SearchBar from '../components/SearchBar';
-import dateFormat from '../utils/functions/dateFormat';
+import ProjectOwner from '../components/JobPage/ProjectOwner';
 
 
 function ProjectDetails() {
@@ -15,28 +13,25 @@ function ProjectDetails() {
     return obj._id === jobData.id;
   });
 
-  console.log(project.field)
-
   return (
     <div className="flex flex-col items-center h-full justify-start">
-      <div className="w-full h-full justify-center hidden xl:flex">
-        <SearchBar />
-      </div>
 
       <div className="w-full border-t border-t-gray-200 h-full flex justify-center">
-        <div className="w-9/12 h-full flex flex-col justify-start mt-5 pt-10">
+        <div className="w-9/12 h-full flex justify-between mt-5 pt-10">
           <JobFull
             projectId={project?._id}
             jobName={project?.name}
-            email={project?.email}
             school={project?.uni}
-            city={project?.location}
-            time={`${dateFormat(project?.startDate)} - ${dateFormat(project?.endDate)}`}
             jobField={project?.field}
             numberOfPeople={project?.Employee_Amount}
-            typeOfJob={project?.Project_Field}
+            desc={project?.desc}
+            city={project?.location}
+            startDate={project?.startDate}
+            endDate={project?.endDate}
+            />
+          <ProjectOwner
+            projectOwnerID={project?.userID}
           />
-          <JobDescription desc={project?.desc} />
         </div>
       </div>
     </div>

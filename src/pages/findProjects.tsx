@@ -22,7 +22,8 @@ const FindProjects = () => {
     });
   }, []);
 
-  console.log(projects)
+  console.log(projects);
+
 
   const projectList = useSelector((state: any) => state.projectList.projectList);
 
@@ -45,8 +46,8 @@ const FindProjects = () => {
                   projectTime={`${dateFormat(project.startDate)} - ${dateFormat(
                     project.endDate
                   )}`}
-                  projectField={project.userID}
-                  projectSkills={project.field.skill}
+                  projectField={project.field[0].position}
+                  projectSkills={project.field[0].skill + ', ' + project.field[1].skill}
                   projectSmallDes={project.shortDesc}
                 />
               </Link>

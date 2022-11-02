@@ -13,7 +13,7 @@ export interface Project {
   startDate: Date;
   endDate: Date;
   shortDesc: string;
-  field: fieldArray;
+  field: Array;
   userID: string;
   uni: string;
 }

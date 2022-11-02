@@ -7,6 +7,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import 'react-datepicker/dist/react-datepicker.css';
 import {  useSelector } from 'react-redux';
 import axios from 'axios';
+import dateFormat from '../utils/functions/dateFormat';
 
 
 function Postjob() {
@@ -84,15 +85,94 @@ function Postjob() {
     respone.status === 200 ? 
       console.log('success')
      : console.log('error');
+  setShowModal(false);
   }
 
+  const [showModal, setShowModal] = React.useState(false);
 
   
   return (
     <div className="flex justify-center mt-20">
-      <div className="flex justify-between w-8/12 h-screen" >
+      <div className="flex justify-between w-8/12 h-fit" >
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">
+                    Post Project Confirmation
+                  </h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-col">
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project name: {name}
+                    </p>
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project short description: {shortDesc}
+                    </p>
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project location: {location}
+                    </p>
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project University: {uni}
+                    </p>
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project duration: {dateFormat(startDate)} - {dateFormat(endDate)}
+                    </p>
+                  {field.map((inputField, index) => (
+                    <div key={index}>
+                      <p>Project Requirement</p>
+                      <p className="my-4 text-gray-600 text-lg">
+                       Position: {inputField.position}
+                        </p>
+                      <p className="my-4 text-gray-600 text-lg">
+                       Skill: {inputField.skill}
+                        </p>
+                    </div>
+                  ))}
+                  <p className="my-4 text-gray-600 text-lg">
+                    Project Description: {desc}
+                    </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={handlePostJob}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
         <div className="space-y-5 font-semibold text-lg xl:w-7/12">
-          <div className=" text-4xl ">Create a project</div>
+          <div className="text-4xl ">Create a project</div>
           <div>
             <h1>Your Project Name</h1>
             <input
@@ -211,10 +291,9 @@ function Postjob() {
             />
           </div>
           <button
-            onClick={
-              handlePostJob
-            }
-            className="w-11/12 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md "
+            type="button"
+            onClick={() => setShowModal(true)}
+            className="w-11/12 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md shadow outline-none focus:outline-none mr-1 mb-1 ease-linear  duration-150"
           >
             <h1 className="mr-2">Post Job</h1>
             <svg

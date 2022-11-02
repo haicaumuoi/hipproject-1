@@ -14,7 +14,9 @@ function Main() {
   const user = useSelector((state: any) => state.user);
 
   return (
+    <div className='mb-20'>
     <Routes location={location} key={location.pathname}>
+
       <Route path="/" element={<FindProjects />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/findProject" element={<FindProjects />}></Route>
@@ -39,7 +41,7 @@ function Main() {
           <Notification />
         </ProtectedRoute>
       }></Route>
-    </Routes>
+    </Routes></div>
   );
 }
 

@@ -1,4 +1,5 @@
 import {useLocation } from 'react-router-dom';
+import Footer from '../Footer';
 // import Footer from '../Footer';
 import Header from '../Header';
 import Main from '../Main';
@@ -12,7 +13,7 @@ export default function DashboardLayout() {
     <div>
       {showHeader && <Header />}
         <Main/>
-      {/* <Footer></Footer> */}
+      <Footer/>
     </div>
   );
 }

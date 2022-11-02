@@ -9,6 +9,7 @@ import {  Snackbar } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { userSlice } from "../redux/UserReducer";
 import { useDispatch } from "react-redux";
+import { userListSlice } from "../redux/UserListReducer";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -29,6 +30,7 @@ function Login() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
 
   const loginGoogle = async (email: string, googleId: string) => {
@@ -42,6 +44,7 @@ function Login() {
     respone.status === 200 ? setIsSignedIn(true) : setIsSignedIn(false);
     isSignedIn ? navigate("/", { state: {user} }) : handleClick(); 
     dispatch(userSlice.actions.userLogIn(data));
+    dispatch(userListSlice.actions.initUserList(userList));
   };
 
   useEffect(() => {
@@ -52,7 +55,12 @@ function Login() {
       });
     };
     gapi.load("client:auth2", initClient);
-  });
+    
+    client.get("/api/user/getalluser").then((res) => {
+        setUserList(res.data);
+      });
+  }, []);
+
 
   const onSuccess = (res: any) => {
     loginGoogle(res.profileObj.email, res.profileObj.googleId);
