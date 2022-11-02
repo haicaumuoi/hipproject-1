@@ -18,20 +18,19 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const client = axios.create({
-  baseURL: "https://hipproback.herokuapp.com",
-});
-
-const clientId =
-  "613985939864-7h3brr80t1hh5cu13gtmlou9kr44s36t.apps.googleusercontent.com";
 
 function Login() {
   const [user, setUser] = useState({});
   const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
+  const client = axios.create({
+    baseURL: "https://hipproback.herokuapp.com",
+  });
+  
+  const clientId =
+    "613985939864-7h3brr80t1hh5cu13gtmlou9kr44s36t.apps.googleusercontent.com";
 
   const loginGoogle = async (email: string, googleId: string) => {
     const respone = await client
@@ -44,7 +43,6 @@ function Login() {
     respone.status === 200 ? setIsSignedIn(true) : setIsSignedIn(false);
     isSignedIn ? navigate("/", { state: {user} }) : handleClick(); 
     dispatch(userSlice.actions.userLogIn(data));
-    dispatch(userListSlice.actions.initUserList(userList));
   };
 
   useEffect(() => {
@@ -55,10 +53,6 @@ function Login() {
       });
     };
     gapi.load("client:auth2", initClient);
-    
-    client.get("/api/user/getalluser").then((res) => {
-        setUserList(res.data);
-      });
   }, []);
 
 

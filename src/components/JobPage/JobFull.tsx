@@ -66,11 +66,11 @@ function JobFull({
         <Link to={'/login'}>
           <div className="flex flex-col"> 
           {jobField?.map((item: any) => (
-            <div className="flex">
-             <div>{item.position}</div>
-            <div>{item.skill}</div> 
-            <button className="w-56 xl:w-72 xl:h-10 h-12 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
-              Apply Now
+            <div className="flex items-center justify-between my-2">
+            <div className="text-lg mr-5">Position: {item.position}</div>
+            <div className="text-lg">{item.skill}</div> 
+            <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md" onClick={sendApplicationHandle}>
+              Login To Apply
             </button>
           </div>
           ))}  

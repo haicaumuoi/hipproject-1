@@ -8,18 +8,24 @@ import dateFormat from '../utils/functions/dateFormat';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { projectListSlice } from '../redux/ProjectListReducer';
+import { userListSlice } from '../redux/UserListReducer';
+import { fetchUserList } from '../utils/functions/fetchUserList';
 
 const FindProjects = () => {
 
   const [projects, setProjects] = useState<Project[]>([]);
-
+  const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
   dispatch(projectListSlice.actions.initProjectList(projects));
-  
+  dispatch(userListSlice.actions.initUserList(userList));
   useEffect(() => {
     fetchProject().then((res) => {
       setProjects(res);
     });
+        
+    fetchUserList().then((res) => {
+      setUserList(res);
+  });
   }, []);
 
   console.log(projects);
