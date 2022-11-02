@@ -1,23 +1,21 @@
-interface ProjectCriteria {
-  criteria1: string;
-  criteria2: string;
-  criteria3: string;
+interface fieldInterface {
+    position: string;
+    skill: string;
 }
+
+interface fieldArray extends Array<fieldInterface>{}
 
 export interface Project {
   _id: string;
-  Employee_Amount: string;
-  Project_Id: string;
-  Project_Name: string;
-  Project_Location: string;
-  Post_Date: Date;
-  Project_Skill: string;
-  Project_Field: string;
-  Project_Criteria: ProjectCriteria;
-  User_id: string;
-  User_Email: string;
-  User_University: string;
-  End_Date: Date;
+  desc: string;
+  name: string;
+  location: string;
+  startDate: Date;
+  endDate: Date;
+  shortDesc: string;
+  field: fieldArray;
+  userID: string;
+  uni: string;
 }
 
 export interface User {}

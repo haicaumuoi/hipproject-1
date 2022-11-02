@@ -6,9 +6,7 @@ interface ProjectCardProps {
   projectTime: string;
   projectSkills: string;
   projectField: string;
-  projectCriteria1: string;
-  projectCriteria2: string;
-  projectCriteria3: string;
+  projectSmallDes: string;
 }
 
 function ProjectCard({
@@ -18,16 +16,16 @@ function ProjectCard({
   projectTime,
   projectSkills,
   projectField,
+  projectSmallDes
 }: ProjectCardProps) {
   return (
-    // <Link to={`/findProject/${projectId}`}>
     <div className="w-80 h-96 flex flex-col justify-evenly items-start mx-5 my-5 cursor-pointer border-gray-400 border rounded-lg px-5 relative hover:shadow-md transition-all xl:h-80 xl:w-[26rem] 2xl:w-[24rem]">
-      <div className="w-11/12">
+      <div className="w-11/12 flex flex-col">
         <div className="font-bold text-xl text-ellipsis overflow-hidden whitespace-nowrap inline-block w-fit hover:border-b hover:border-b-black border-b border-b-transparent my-1">
           {projectName}
         </div>
-        <div className="font-bold text-lg text-ellipsis overflow-hidden whitespace-nowrap inline-block w-fit hover:border-b hover:border-b-black border-b border-b-transparent">
-          This is the line for small description
+        <div className="w-full inline-block h-fit font-bold text-lg  hover:border-b hover:border-b-black border-b border-b-transparent">
+          {projectSmallDes}
         </div>
       </div>
       <div className="flex w-11/12 xl:w-10/12  h-8 items-center rounded-lg justify-around bg-green-200 text-green-800 font-semibold">
@@ -123,7 +121,7 @@ function ProjectCard({
         <h2 className="pl-3">{projectCity}</h2>
       </div>
     </div>
-    // </Link>
+
   );
 }
 

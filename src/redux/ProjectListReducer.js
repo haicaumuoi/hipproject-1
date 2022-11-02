@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchProject } from '../utils/functions/fetchProject';
 
 
 export const projectListSlice = createSlice({

@@ -22,8 +22,9 @@ const FindProjects = () => {
     });
   }, []);
 
+  console.log(projects)
+
   const projectList = useSelector((state: any) => state.projectList.projectList);
-  console.log(projectList);
 
   const searchText = useSelector((state: any) => state.searchList);
 
@@ -38,17 +39,15 @@ const FindProjects = () => {
                 <ProjectCard
                   key={project._id}
                   projectId={project._id}
-                  projectName={project.Project_Name}
-                  projectCity={project.Project_Location}
-                  projectSchool={project.User_University}
-                  projectTime={`${dateFormat(project.Post_Date)} - ${dateFormat(
-                    project.End_Date
+                  projectName={project.name}
+                  projectCity={project.location}
+                  projectSchool={project.uni}
+                  projectTime={`${dateFormat(project.startDate)} - ${dateFormat(
+                    project.endDate
                   )}`}
-                  projectField={project.Project_Field}
-                  projectSkills={project.Project_Skill}
-                  projectCriteria1="abc"
-                  projectCriteria2="abc"
-                  projectCriteria3="abc"
+                  projectField={project.userID}
+                  projectSkills={project.field.skill}
+                  projectSmallDes={project.shortDesc}
                 />
               </Link>
             </div>

@@ -3,13 +3,13 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
 import logo from '../assets/logos/logo.png';
-
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import 'react-datepicker/dist/react-datepicker.css';
 import {  useSelector } from 'react-redux';
-import axios from 'axios';
-
+import axios from 'axios';;
 
 function Postjob() {
+
 
 
   const [startDate, setStartDate] = useState(new Date());
@@ -26,7 +26,7 @@ function Postjob() {
   const participants = [];
   const applications = [];
 
-  const [inputFields, setInputFields] = useState([
+  const [field, setInputFields] = useState([
     {
       position: [''],
       skill: '', 
@@ -35,7 +35,7 @@ function Postjob() {
 
   const addInputField = () => {
     setInputFields([
-      ...inputFields,
+      ...field,
       {
       position: [''], 
       skill: '',
@@ -43,15 +43,14 @@ function Postjob() {
     ]);
   };
   const removeInputFields = (index) => {
-    const rows = [...inputFields];
+    const rows = [...field];
     rows.splice(index, 1);
     setInputFields(rows);
   };
 
   const handleChange = (index, evnt) => {
-    const { name, value, id } = evnt.target;
-    console.log(id, name, value);
-    const list = [...inputFields];
+    const { name, value } = evnt.target;
+    const list = [...field];
     list[index][name] = value;
     setInputFields(list);
   };
@@ -65,7 +64,7 @@ function Postjob() {
     startDate,
     endDate,
     desc,
-    inputFields,
+    field,
     participants,
     applications
   };
@@ -81,9 +80,12 @@ function Postjob() {
     .post("/api/prj/create", {
       data: dataReturn
     });
-    respone.status === 200 ? console.log('success') : console.log('failed');
-    // dispatch(projectListSlice.actions.addProject(dataReturn));
+    respone.status === 200 ? 
+      console.log('success')
+     : console.log('error');
   }
+
+
   
   return (
     <div className="flex justify-center mt-20">
@@ -158,7 +160,7 @@ function Postjob() {
             />
           </div>
 
-        {inputFields.map((inputField, index) => (
+        {field.map((inputField, index) => (
            <div className="border border-black" key={index}>
            <div>
              <h1>Position Needed</h1>
@@ -253,6 +255,7 @@ function Postjob() {
           <img src={logo} alt="logos" className="w-96 h-96" />
         </div>
       </div>
+
     </div>
   );
 }

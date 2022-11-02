@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Project } from '../../typing';
 import JobDescription from '../components/JobPage/JobDescription';
 import JobFull from '../components/JobPage/JobFull';
 import SearchBar from '../components/SearchBar';
 import dateFormat from '../utils/functions/dateFormat';
-import { fetchProject } from '../utils/functions/fetchProject';
-import data from '../utils/functions/testing';
+
 
 function ProjectDetails() {
   const jobData = useParams();
@@ -17,6 +14,8 @@ function ProjectDetails() {
   const project = projectList.projectList.find((obj:any) => {
     return obj._id === jobData.id;
   });
+
+  console.log(project.field)
 
   return (
     <div className="flex flex-col items-center h-full justify-start">
@@ -28,15 +27,16 @@ function ProjectDetails() {
         <div className="w-9/12 h-full flex flex-col justify-start mt-5 pt-10">
           <JobFull
             projectId={project?._id}
-            jobName={project?.Project_Name}
-            email={project?.User_id}
-            school={project?.User_University}
-            city={project?.Project_Location}
-            time={`${dateFormat(project?.Post_Date)} - ${dateFormat(project?.End_Date)}`}
+            jobName={project?.name}
+            email={project?.email}
+            school={project?.uni}
+            city={project?.location}
+            time={`${dateFormat(project?.startDate)} - ${dateFormat(project?.endDate)}`}
+            jobField={project?.field}
             numberOfPeople={project?.Employee_Amount}
             typeOfJob={project?.Project_Field}
           />
-          <JobDescription desc={dateFormat(project?.Post_Date)} />
+          <JobDescription desc={project?.desc} />
         </div>
       </div>
     </div>
