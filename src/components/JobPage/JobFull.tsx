@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { applicationSlice } from "../../redux/Application";
@@ -35,7 +36,23 @@ function JobFull({
   const dispatch = useDispatch();
   const sendApplicationHandle = () => {
     dispatch(applicationSlice.actions.sendApplication(application));
-    dispatch(projectListSlice.actions.addApplicationToProject(applicationToProject));
+    // dispatch(projectListSlice.actions.addApplicationToProject(applicationToProject));
+    handlePostJob();
+  }
+
+  const client = axios.create({
+    baseURL: "https://hipproback.herokuapp.com",
+  });
+  
+
+  const handlePostJob = async () => {
+  const respone = await client
+    .post("/api/appl/create", {
+      data: application
+    });
+    respone.status === 200 ? 
+      console.log('success')
+     : console.log('error');
   }
 
   console.log(jobField)
