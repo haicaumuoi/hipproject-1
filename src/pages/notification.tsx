@@ -7,6 +7,8 @@ function Notification() {
       <NotFoundNoti />
     </div>
   );
+
+
 }
 
 export default Notification;

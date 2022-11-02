@@ -40,8 +40,8 @@ function Login() {
     const data = await respone.data.data;
     setUser(data);
     respone.status === 200 ? setIsSignedIn(true) : setIsSignedIn(false);
-    dispatch(userSlice.actions.userLogIn(data));
     isSignedIn ? navigate("/", { state: {user} }) : handleClick(); 
+    dispatch(userSlice.actions.userLogIn(data));
   };
 
   useEffect(() => {

@@ -35,7 +35,7 @@ function JobFull({
   const applicationToProject = { application, projectId };
   const dispatch = useDispatch();
   const sendApplicationHandle = () => {
-    dispatch(applicationSlice.actions.sendApplication(application));
+    // dispatch(applicationSlice.actions.sendApplication(application));
     // dispatch(projectListSlice.actions.addApplicationToProject(applicationToProject));
     handlePostJob();
   }

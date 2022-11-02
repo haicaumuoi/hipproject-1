@@ -6,7 +6,8 @@ import logo from '../assets/logos/logo.png';
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import 'react-datepicker/dist/react-datepicker.css';
 import {  useSelector } from 'react-redux';
-import axios from 'axios';;
+import axios from 'axios';
+
 
 function Postjob() {
 
@@ -175,23 +176,7 @@ function Postjob() {
              />
 
              <h1>Skill Needed</h1>
-             {/* <Autocomplete
-               multiple
-               id="tags-standard"
-               ref={ref0}
-               options={fields}
-               getOptionLabel={(option) => option}
-               renderInput={(params) => (
-                 <TextField
-                   {...params}
-                   variant="standard"
-                   label="Multiple values"
-                   placeholder="Favorites"
-                 />
-               )}
-               onChange={(e) => handleChange(index, e)}
-               componentName='skill'
-             /> */}
+
              <input
                className="font-normal text-base border border-black rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
                type="text"
