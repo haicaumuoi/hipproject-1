@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 interface PopUpUserProps {
   state: string;
@@ -12,7 +12,7 @@ function PopUpUser({ state }: PopUpUserProps) {
         <div className="flex flex-col justify-between h-full">
           <div>
             <div className="pl-5 text-lg font-bold mt-5 mb-6">User Email</div>
-            <Link to={'/profile'}>
+            <Link to={"/profile"}>
               <div className="flex pl-5 py-3 items-center hover:bg-blue-100 transition-all cursor-pointer hover:text-blue-600">
                 <div className="pr-5 text-lg">
                   <svg
@@ -31,10 +31,10 @@ function PopUpUser({ state }: PopUpUserProps) {
                 <h1>Your Profile</h1>
               </div>
             </Link>
-            <Link to={'/projects'}>
+            <Link to={"/projects"}>
               <div className="flex pl-5 py-3 items-center hover:bg-blue-100 transition-all cursor-pointer hover:text-blue-600">
                 <div className="pr-5 text-lg">
-                  {' '}
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -53,10 +53,10 @@ function PopUpUser({ state }: PopUpUserProps) {
                 <h1>Your Projects</h1>
               </div>
             </Link>
-            <Link to={'/emailSetting'}>
+            <Link to={"/emailSetting"}>
               <div className="flex pl-5 py-3 items-center hover:bg-blue-100 transition-all cursor-pointer hover:text-blue-600">
                 <div className="pr-5 text-lg">
-                  {' '}
+                  {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -71,7 +71,7 @@ function PopUpUser({ state }: PopUpUserProps) {
                 <h1>Email Setting</h1>
               </div>
             </Link>
-            <Link to={'/setting'}>
+            <Link to={"/setting"}>
               <div className="flex pl-5 py-3 items-center hover:bg-blue-100 transition-all cursor-pointer hover:text-blue-600">
                 <div className="pr-5 text-lg">
                   <svg
@@ -91,7 +91,7 @@ function PopUpUser({ state }: PopUpUserProps) {
                 <h1>Settings</h1>
               </div>
             </Link>
-            <Link to={'/helpCenter'}>
+            <Link to={"/helpCenter"}>
               <div className="flex pl-5 py-3 items-center hover:bg-blue-100 transition-all cursor-pointer hover:text-blue-600">
                 <div className="pr-5 text-lg">
                   <svg
