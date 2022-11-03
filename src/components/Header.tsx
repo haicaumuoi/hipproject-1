@@ -40,6 +40,11 @@ function Header() {
       : console.log("applicant error");
   };
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
+
   return (
     <div className="flex w-full h-[4.7rem] items-center justify-between border-b border-gray-200">
       <div className="flex">
@@ -142,7 +147,10 @@ function Header() {
               </div>
             </Link>
 
-            <div className="cursor-pointer hover:bg-blue-400 transition-all rounded-full p-1">
+            <div
+              className="cursor-pointer hover:bg-blue-400 transition-all rounded-full p-1"
+              onClick={logout}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

@@ -9,8 +9,8 @@ export const searchListSlice = createSlice({
   },
   reducers: {
     searchProjectList: (state, action) => {
-      state.searchList = projectListSlice.projectlist.filter((item) =>
-        item.projectName.toLowerCase().includes(action.payload.toLowerCase())
+      state.searchList = projectListSlice.projectList.projectList.find(
+        (item) => item.name === action.payload
       );
     },
   },

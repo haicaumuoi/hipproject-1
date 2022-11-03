@@ -4,23 +4,22 @@ import { projectListSlice } from "../redux/ProjectListReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 
 function SearchBar() {
-
   const dispatch = useDispatch();
 
   const [searchProject, setSearchProject] = useState("");
   const [searchSchool, setSearchSchool] = useState("");
 
   const handleSearchProject = (e: any) => {
-    e.preventDefault();
     setSearchProject(e.target.value);
-    dispatch(searchListSlice.actions.searchProjectList(searchProject));
-  }
+    e.preventDefault();
+    dispatch(projectListSlice.actions.searchProjectList(searchProject));
+  };
 
   const handleSearchSchool = (e: any) => {
     e.preventDefault();
     setSearchSchool(e.target.value);
     console.log(searchSchool);
-  }
+  };
 
   return (
     <div className="w-9/12 h-60 xl:h-40 flex items-center ">

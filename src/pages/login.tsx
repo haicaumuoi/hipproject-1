@@ -5,7 +5,7 @@ import axios from "axios";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useNavigate } from "react-router-dom";
-import {  Snackbar } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { userSlice } from "../redux/UserReducer";
 import { useDispatch } from "react-redux";
@@ -18,7 +18,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 function Login() {
   const [user, setUser] = useState({});
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -28,20 +27,19 @@ function Login() {
   const client = axios.create({
     baseURL: "https://hipproback.herokuapp.com",
   });
-  
+
   const clientId =
     "613985939864-7h3brr80t1hh5cu13gtmlou9kr44s36t.apps.googleusercontent.com";
 
   const loginGoogle = async (email: string, googleId: string) => {
-    const respone = await client
-      .post("/api/login", {
-        email: email,
-        _id: googleId
-      });
+    const respone = await client.post("/api/login", {
+      email: email,
+      _id: googleId,
+    });
     const data = await respone.data.data;
     setUser(data);
-    respone.status === 200 ? setIsSignedIn(true) : setIsSignedIn(false);
-    isSignedIn ? navigate("/", { state: {user} }) : handleClick(); 
+    localStorage.setItem("user", JSON.stringify(data));
+    respone.status === 200 ? navigate("/", { state: { user } }) : handleClick();
     dispatch(userSlice.actions.userLogIn(data));
   };
 
@@ -54,7 +52,6 @@ function Login() {
     };
     gapi.load("client:auth2", initClient);
   }, []);
-
 
   const onSuccess = (res: any) => {
     loginGoogle(res.profileObj.email, res.profileObj.googleId);
@@ -98,7 +95,6 @@ function Login() {
           onSuccess={onSuccess}
           onFailure={onFailure}
           cookiePolicy={"single_host_origin"}
-          isSignedIn={true}
           className="flex items-center w-11/12 h-12 rounded-lg mx-auto text-center border-gray-300 border mt-5 justify-center cursor-pointer hover:bg-slate-100 transition-all text-black"
         />
 
