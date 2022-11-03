@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import EditIcon from '../utils/UI/EditIcon';
+import React from "react";
+import { useSelector } from "react-redux";
+import EditIcon from "../utils/UI/EditIcon";
 
 function Profile() {
   const user = useSelector((state: any) => state.user);
@@ -9,8 +9,8 @@ function Profile() {
     <div className="flex justify-center mt-5 ">
       <div className="flex flex-col justify-start items-start w-10/12 xl:w-[33%] h-screen ">
         <div className="w-full h-32 bg-white flex items-center">
-          <div className="rounded-full border-blue-700 border-4 text-black font-extrabold text-2xl w-20 h-20 flex justify-center items-center">
-            <h1>AN</h1>
+          <div className="text-black font-extrabold text-2xl w-20 h-20 flex justify-center items-center">
+            <img className="rounded-full" src={user.avatar} alt="avatar" />
           </div>
           <div className="flex flex-col space-y-2 pl-5">
             <h1 className="text-2xl font-bold">Amit Nair</h1>

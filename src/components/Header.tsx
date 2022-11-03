@@ -84,7 +84,7 @@ function Header() {
 
       {user.email !== "" ? (
         <div className="flex items-center mx-2 xl:mx-10 h-full">
-          <div className=" flex w-10 xl:w-32 justify-around items-end border-r border-r-gray-300 pr-5">
+          <div className=" flex w-10 xl:w-52 justify-around items-end border-r border-r-gray-300 pr-5">
             <div className="hidden xl:block">
               <Link to={"/profile"}>
                 <div className=" cursor-pointer hover:bg-blue-400 transition-all rounded-full p-1 ">

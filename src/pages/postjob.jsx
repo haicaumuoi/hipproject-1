@@ -230,55 +230,97 @@ function Postjob() {
             />
           </div>
 
-          {field.map((inputField, index) => (
-            <div
-              className="border border-gray-400 w-full xl:w-11/12 rounded-xl px-5 py-3"
-              key={index}
-            >
-              <div className="text-xl">Postion</div>
-              <div className="space-y-3">
-                <h1>Role</h1>
-                <input
-                  className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
-                  type="text"
-                  required
-                  placeholder='e.g. "React, Excel, Photoshop, etc."'
-                  value={inputField.position}
-                  onChange={(e) => handleChange(index, e)}
-                  name="position"
-                />
-
-                <h1>Skill</h1>
-
-                <input
-                  className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
-                  type="text"
-                  required
-                  placeholder='e.g. "React, Excel, Photoshop, etc."'
-                  value={inputField.skill}
-                  onChange={(e) => handleChange(index, e)}
-                  name="skill"
-                />
-              </div>
-              <div className="mt-3 space-x-5">
-                <button
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
-                  onClick={addInputField}
+          {field.length > 1
+            ? field.map((inputField, index) => (
+                <div
+                  className="border border-gray-400 w-full xl:w-11/12 rounded-xl px-5 py-3"
+                  key={index}
                 >
-                  Add Field
-                </button>
-                <button
-                  className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                  onClick={() => {
-                    removeInputFields(index);
-                  }}
+                  <div className="text-xl">Postion</div>
+                  <div className="space-y-3">
+                    <h1>Role</h1>
+                    <input
+                      className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+                      type="text"
+                      required
+                      placeholder='e.g. "React, Excel, Photoshop, etc."'
+                      value={inputField.position}
+                      onChange={(e) => handleChange(index, e)}
+                      name="position"
+                    />
+
+                    <h1>Skill</h1>
+
+                    <input
+                      className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+                      type="text"
+                      required
+                      placeholder='e.g. "React, Excel, Photoshop, etc."'
+                      value={inputField.skill}
+                      onChange={(e) => handleChange(index, e)}
+                      name="skill"
+                    />
+                  </div>
+                  <div className="mt-3 space-x-5">
+                    <button
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                      onClick={addInputField}
+                    >
+                      Add Field
+                    </button>
+                    <button
+                      className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                      onClick={() => {
+                        removeInputFields(index);
+                      }}
+                    >
+                      Remove Field
+                    </button>{" "}
+                  </div>
+                </div>
+              ))
+            : field.map((inputField, index) => (
+                <div
+                  className="border border-gray-400 w-full xl:w-11/12 rounded-xl px-5 py-3"
+                  key={index}
                 >
-                  Remove Field
-                </button>{" "}
-              </div>
-            </div>
-          ))}
+                  <div className="text-xl">Postion</div>
+                  <div className="space-y-3">
+                    <h1>Role</h1>
+                    <input
+                      className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+                      type="text"
+                      required
+                      placeholder='e.g. "React, Excel, Photoshop, etc."'
+                      value={inputField.position}
+                      onChange={(e) => handleChange(index, e)}
+                      name="position"
+                    />
+
+                    <h1>Skill</h1>
+
+                    <input
+                      className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
+                      type="text"
+                      required
+                      placeholder='e.g. "React, Excel, Photoshop, etc."'
+                      value={inputField.skill}
+                      onChange={(e) => handleChange(index, e)}
+                      name="skill"
+                    />
+                  </div>
+                  <div className="mt-3 space-x-5">
+                    <button
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                      onClick={addInputField}
+                    >
+                      Add Field
+                    </button>
+                  </div>
+                </div>
+              ))}
 
           <div></div>
           <div>
