@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import FindProjects from "../pages/findProjects";
 import Login from "../pages/login";
@@ -8,10 +8,16 @@ import Profile from "../pages/Profile";
 import ProjectDetails from "../pages/projectDetails";
 import Projects from "../pages/Projects";
 import SetProfile from "../pages/setProfile";
+import { userSlice } from "../redux/UserReducer";
 import ProtectedRoute from "./ProtectedRoute";
 
 function Main() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const userLS = localStorage.getItem("user");
+  if (userLS) {
+    dispatch(userSlice.actions.userLogIn(userLS));
+  }
   const user = useSelector((state: any) => state.user);
 
   return (

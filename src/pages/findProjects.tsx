@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { projectListSlice } from "../redux/ProjectListReducer";
 import { userListSlice } from "../redux/UserListReducer";
 import { fetchUserList } from "../utils/functions/fetchUserList";
+import { userSlice } from "../redux/UserReducer";
 
 const FindProjects = () => {
   const [userList, setUserList] = useState([]);

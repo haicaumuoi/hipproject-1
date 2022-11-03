@@ -10,6 +10,7 @@ import { applicantSlice } from "../redux/Applicant";
 
 function Header() {
   const user = useSelector((state: any) => state.user);
+  const userLS = localStorage.getItem("user");
   const dispatch = useDispatch();
 
   const initApplication = async () => {
@@ -87,7 +88,7 @@ function Header() {
         </div>
       </div>
 
-      {user.email !== "" ? (
+      {userLS ? (
         <div className="flex items-center mx-2 xl:mx-10 h-full">
           <div className=" flex w-10 xl:w-52 justify-around items-end border-r border-r-gray-300 pr-5">
             <div className="hidden xl:block">
