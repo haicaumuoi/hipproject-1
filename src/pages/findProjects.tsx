@@ -32,8 +32,6 @@ const FindProjects = () => {
     });
   }, []);
 
-  console.log(projectList);
-
   return (
     <div className="flex flex-col items-center h-full justify-start">
       <SearchBar />

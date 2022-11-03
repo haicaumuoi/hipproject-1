@@ -39,8 +39,8 @@ function Login() {
     const data = await respone.data.data;
     setUser(data);
     localStorage.setItem("user", JSON.stringify(data));
-    respone.status === 200 ? navigate("/", { state: { user } }) : handleClick();
     dispatch(userSlice.actions.userLogIn(data));
+    respone.status === 200 ? navigate("/", { state: { user } }) : handleClick();
   };
 
   useEffect(() => {

@@ -13,11 +13,6 @@ import ProtectedRoute from "./ProtectedRoute";
 
 function Main() {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const userLS = localStorage.getItem("user");
-  if (userLS) {
-    dispatch(userSlice.actions.userLogIn(userLS));
-  }
   const user = useSelector((state: any) => state.user);
 
   return (
