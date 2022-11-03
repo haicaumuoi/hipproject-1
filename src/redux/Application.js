@@ -1,14 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
-
+import { createSlice } from "@reduxjs/toolkit";
 
 export const applicationSlice = createSlice({
-    name: 'application',
-    initialState: {
-        application: [],
+  name: "application",
+  initialState: {
+    application: [],
+  },
+  reducers: {
+    initApplication: (state, action) => {
+      state.application = action.payload;
     },
-    reducers: {
-        sendApplication: (state, action) => {
-            state.application = state.application.concat(action.payload);
-        },
-    }
-})
+    sendApplication: (state, action) => {
+      state.application = state.application.concat(action.payload);
+    },
+  },
+});
