@@ -43,14 +43,12 @@ function JobFull({
     handlePostJob();
   }
 
-  const client = axios.create({
-    baseURL: "https://hipproback.herokuapp.com",
-  });
+
   
 
   const handlePostJob = async () => {
-  const respone = await client
-    .post("/api/appl/create", {
+  const respone = await axios
+    .post("https://hipproback.herokuapp.com/api/appl/create", {
       data: application
     });
     console.log(application)

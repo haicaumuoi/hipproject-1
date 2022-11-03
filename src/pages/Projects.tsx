@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ProjectState from '../utils/UI/ProjectState';
 
 function Projects() {
  
   const [projectState, setProjectState] = useState(true);
-
   return (
     <div className="w-screen h-fit bg-gray-50 flex justify-center items-center my-20">
       <div className="w-9/12 h-5/6">
