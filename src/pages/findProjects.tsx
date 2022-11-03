@@ -53,7 +53,8 @@ const FindProjects = () => {
                     project.endDate
                   )}`}
                   projectField={project.field[0].position}
-                  projectSkills={project.field[0].skill + ', ' + project.field[1].skill}
+                  projectSkills={project.field[0].skill
+                   }
                   projectSmallDes={project.shortDesc}
                 />
               </Link>
