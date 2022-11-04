@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { userListSlice } from "../../redux/UserListReducer";
 import dateFormat from "../../utils/functions/dateFormat";
 import JobApply from "../../utils/UI/JobApply";
+import Participant from "../../utils/UI/Participant";
 import JobDescription from "./JobDescription";
 
 interface jobFullProps {
@@ -14,14 +16,17 @@ interface jobFullProps {
   city: string | undefined;
   startDate: Date | undefined;
   endDate: Date | undefined;
+  participants: Array<Object> | undefined;
+  userId: string | undefined;
 }
 
 function JobFull({
   projectId,
   jobName,
   jobField,
-  numberOfPeople,
+  participants,
   city,
+  userId,
   startDate,
   endDate,
   school,
@@ -29,22 +34,12 @@ function JobFull({
 }: jobFullProps) {
   const user = useSelector((state: any) => state.user);
 
+  const userList = useSelector((state: any) => state.userList.userList);
+
   return (
     <div className="w-8/12 my-1 h-full xl:pr-10 space-y-4">
       <div className="text-3xl font-bold mb-1">{jobName}</div>
-      {user.email === "" ? (
-        <Link to={"/login"}>
-          <div className="flex flex-col">
-            {jobField?.map((item: any) => (
-              <JobApply
-                role={item.position}
-                skill={item.skill}
-                projectId={projectId}
-              />
-            ))}
-          </div>
-        </Link>
-      ) : (
+      {user._id !== userId ? (
         <div className="flex flex-col">
           {jobField?.map((item: any) => (
             <JobApply
@@ -54,7 +49,7 @@ function JobFull({
             />
           ))}
         </div>
-      )}
+      ) : null}
       <div className="text-lg">
         This project lasted from {dateFormat(startDate)} to{" "}
         {dateFormat(endDate)}
@@ -69,43 +64,18 @@ function JobFull({
             Number Of People in Group
           </div>
           <div className="space-y-2 mt-4">
-            <div className="flex items-center space-x-2">
-              <img
-                className="w-10 h-10 rounded-full"
-                src={user.avatar}
-                alt="avt"
-              />
-              <p>{user.email}</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <img
-                className="w-10 h-10 rounded-full"
-                src={user.avatar}
-                alt="avt"
-              />
-              <p>{user.email}</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <img
-                className="w-10 h-10 rounded-full"
-                src={user.avatar}
-                alt="avt"
-              />
-              <p>{user.email}</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <img
-                className="w-10 h-10 rounded-full"
-                src={user.avatar}
-                alt="avt"
-              />
-              <p>{user.email}</p>
-            </div>
+            {participants?.length !== 0 ? (
+              participants?.map((item: any) => (
+                <Participant avatar={item.avatar} email={item.email} />
+              ))
+            ) : (
+              <div>There hasn't been any participant</div>
+            )}
           </div>
         </div>
       ) : (
         <div className="flex items-center">
-          <p>There are {4} people working in this project</p>
+          <p>There are {participants?.length} people working in this project</p>
         </div>
       )}
     </div>

@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Route, useLocation } from 'react-router-dom';
-import DashboardLayout from './components/DashboardLayout';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Route, useLocation } from "react-router-dom";
+import DashboardLayout from "./components/DashboardLayout";
 
 function App() {
   const location = useLocation();

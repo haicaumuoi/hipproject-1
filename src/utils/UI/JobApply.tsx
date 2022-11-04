@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { applicationSlice } from "../../redux/Application";
 
 type Props = {
@@ -37,12 +38,20 @@ function JobApply({ role, skill, projectId }: Props) {
     <div className="flex items-center justify-between my-2">
       <div className="text-lg mr-5">Position: {role}</div>
       <div className="text-lg">{skill}</div>
-      <button
-        className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
-        onClick={sendApplicationHandle}
-      >
-        Apply Now
-      </button>
+      {user.email !== "" ? (
+        <button
+          className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
+          onClick={sendApplicationHandle}
+        >
+          Apply Now
+        </button>
+      ) : (
+        <Link to={"/login"}>
+          <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
+            Login To Apply
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
