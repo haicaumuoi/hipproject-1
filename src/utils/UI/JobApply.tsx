@@ -27,11 +27,15 @@ function JobApply({ role, skill, projectId }: Props) {
     (project: any) => project._id === projectId
   );
 
-  const participant = currentProject.application.find(
+  const applicationPrj = currentProject.application.find(
     (participant: any) => participant.applicantId === userID
   );
 
-  console.log(participant);
+  const participant = currentProject.participants.find(
+    (participant: any) => participant.applicantId === userID
+  );
+
+  console.log(participant, applicationPrj);
   const handlePostJob = async () => {
     const respone = await axios.post(
       "https://hipproback.herokuapp.com/api/appl/create",
@@ -50,7 +54,7 @@ function JobApply({ role, skill, projectId }: Props) {
       <div className="text-lg mr-5">Position: {role}</div>
       <div className="text-lg">{skill}</div>
       {user.email !== "" ? (
-        !participant ? (
+        !participant && !applicationPrj ? (
           <button
             className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
             onClick={sendApplicationHandle}
