@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { projectListSlice } from "../redux/ProjectListReducer";
@@ -12,13 +13,19 @@ function SearchBar() {
   const handleSearchProject = (e: any) => {
     setSearchProject(e.target.value);
     e.preventDefault();
-    dispatch(projectListSlice.actions.searchProjectList(searchProject));
   };
 
   const handleSearchSchool = (e: any) => {
     e.preventDefault();
     setSearchSchool(e.target.value);
-    console.log(searchSchool);
+  };
+
+  const sendSearchText = async () => {
+    const response = await axios.get(
+      `https://hipproback.herokuapp.com/api/prj/search?name=${searchProject}&uni=${searchSchool}`
+    );
+
+    dispatch(searchListSlice.actions.searchProjectList(response.data));
   };
 
   return (
@@ -36,7 +43,10 @@ function SearchBar() {
           placeholder="Search for school"
           onChange={handleSearchSchool}
         />
-        <button className="w-full xl:w-32 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
+        <button
+          className="w-full xl:w-32 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
+          onClick={sendSearchText}
+        >
           Find Project
         </button>
       </div>
