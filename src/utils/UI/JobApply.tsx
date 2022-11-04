@@ -16,11 +16,22 @@ function JobApply({ role, skill, projectId }: Props) {
   const application = { userID, projectId, status, role };
 
   const dispatch = useDispatch();
+
+  const projectList = useSelector(
+    (state: any) => state.projectList.projectList
+  );
   const sendApplicationHandle = () => {
-    console.log(application);
     handlePostJob();
   };
+  const currentProject = projectList.find(
+    (project: any) => project._id === projectId
+  );
 
+  const participant = currentProject.participants.find(
+    (participant: any) => participant._id === userID
+  );
+
+  console.log(participant);
   const handlePostJob = async () => {
     const respone = await axios.post(
       "https://hipproback.herokuapp.com/api/appl/create",
@@ -39,12 +50,18 @@ function JobApply({ role, skill, projectId }: Props) {
       <div className="text-lg mr-5">Position: {role}</div>
       <div className="text-lg">{skill}</div>
       {user.email !== "" ? (
-        <button
-          className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
-          onClick={sendApplicationHandle}
-        >
-          Apply Now
-        </button>
+        !participant ? (
+          <button
+            className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
+            onClick={sendApplicationHandle}
+          >
+            Apply Now
+          </button>
+        ) : (
+          <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md cursor-not-allowed">
+            Applied
+          </button>
+        )
       ) : (
         <Link to={"/login"}>
           <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
