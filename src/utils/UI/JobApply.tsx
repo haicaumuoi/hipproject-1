@@ -27,8 +27,8 @@ function JobApply({ role, skill, projectId }: Props) {
     (project: any) => project._id === projectId
   );
 
-  const participant = currentProject.participants.find(
-    (participant: any) => participant._id === userID
+  const participant = currentProject.application.find(
+    (participant: any) => participant.applicantId === userID
   );
 
   console.log(participant);
