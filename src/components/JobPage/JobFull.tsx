@@ -75,7 +75,13 @@ function JobFull({
         </div>
       ) : (
         <div className="flex items-center">
-          <p>There are {participants?.length} people working in this project</p>
+          {participants?.length !== 0 ? (
+            <p>
+              There are {participants?.length} people working in this project
+            </p>
+          ) : (
+            <p>There hasn't been any participant</p>
+          )}
         </div>
       )}
     </div>
