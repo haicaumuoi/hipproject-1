@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { applicationSlice } from "../../redux/Application";
+import AppliedButton from "./AppliedButton";
+import ApplyButton from "./ApplyButton";
+import { useState } from "react";
 
 type Props = {
   role: string;
@@ -21,6 +24,7 @@ function JobApply({ role, skill, projectId }: Props) {
     (state: any) => state.projectList.projectList
   );
   const sendApplicationHandle = () => {
+    setIsApplied(true);
     handlePostJob();
   };
   const currentProject = projectList.find(
@@ -49,22 +53,17 @@ function JobApply({ role, skill, projectId }: Props) {
       : console.log("error");
   };
 
+  const [isApplied, setIsApplied] = useState(false);
+
   return (
     <div className="flex items-center justify-between my-2">
       <div className="text-lg mr-5">Position: {role}</div>
       <div className="text-lg">{skill}</div>
       {user.email !== "" ? (
-        !participant && !applicationPrj ? (
-          <button
-            className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
-            onClick={sendApplicationHandle}
-          >
-            Apply Now
-          </button>
+        !participant && !applicationPrj && !isApplied ? (
+          <ApplyButton sendApplicationHandle={sendApplicationHandle} />
         ) : (
-          <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md cursor-not-allowed">
-            Applied
-          </button>
+          <AppliedButton />
         )
       ) : (
         <Link to={"/login"}>

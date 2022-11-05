@@ -17,7 +17,7 @@ function ProjectDetails() {
       <div className="w-full border-t border-t-gray-200 h-full flex justify-center">
         <div className="w-9/12 h-full flex justify-between mt-5 pt-10">
           <JobFull
-            userId={project.userID}
+            userId={project?.userID}
             projectId={project?._id}
             jobName={project?.name}
             school={project?.uni}

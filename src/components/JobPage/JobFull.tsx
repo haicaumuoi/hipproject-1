@@ -34,8 +34,6 @@ function JobFull({
 }: jobFullProps) {
   const user = useSelector((state: any) => state.user);
 
-  const userList = useSelector((state: any) => state.userList.userList);
-
   return (
     <div className="w-8/12 my-1 h-full xl:pr-10 space-y-4">
       <div className="text-3xl font-bold mb-1">{jobName}</div>
