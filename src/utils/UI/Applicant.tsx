@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { applicantSlice } from "../../redux/Applicant";
+import "../../animation/strikethrough.css";
+import "../../animation/highlight.css";
 
 type applicant = {
   _id: string;
@@ -81,14 +83,14 @@ function Applicant({
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           onClick={() => setApplicationStatus("Accepted")}
         >
-          Accept
+          <p className="highlight">Accept</p>
         </button>
         <button
           type="button"
           className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
           onClick={() => setApplicationStatus("Rejected")}
         >
-          Decline
+          <p className="strikethrough">Decline</p>
         </button>
       </div>
     </div>

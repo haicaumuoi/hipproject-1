@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { projectListSlice } from "../redux/ProjectListReducer";
+import "../animation/shine.css";
 import { searchListSlice } from "../redux/SearchListReducer";
 
 function SearchBar() {
@@ -44,7 +44,7 @@ function SearchBar() {
           onChange={handleSearchSchool}
         />
         <button
-          className="w-full xl:w-32 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md"
+          className="w-full xl:w-32 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md shine"
           onClick={sendSearchText}
         >
           Find Project
