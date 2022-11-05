@@ -1,6 +1,6 @@
 import React from "react";
 // import PopUpUser from './PopUpUser';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PopUpUser from "../utils/UI/PopUpUser";
 import logo from "../assets/logos/logo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { applicantSlice } from "../redux/Applicant";
 function Header() {
   const user = useSelector((state: any) => state.user);
   const userLS = localStorage.getItem("user");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initApplication = async () => {
@@ -43,6 +44,8 @@ function Header() {
 
   const logout = () => {
     localStorage.removeItem("user");
+
+    navigate("/");
     window.location.reload();
   };
 
