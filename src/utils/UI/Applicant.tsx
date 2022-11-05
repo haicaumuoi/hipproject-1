@@ -60,7 +60,6 @@ function Applicant({
       console.log(response);
     }
     dispatch(applicantSlice.actions.deleteApplicant(applicationId));
-    console.log(statusData);
   };
 
   return (

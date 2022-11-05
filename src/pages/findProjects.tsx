@@ -13,6 +13,7 @@ import { fetchUserList } from "../utils/functions/fetchUserList";
 import { userSlice } from "../redux/UserReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 import FindProjectSmall from "../utils/UI/findProjectSmall";
+import LoadingSpinner from "../utils/UI/LoadingSpinner";
 
 const FindProjects = () => {
   const [userList, setUserList] = useState([]);
@@ -22,9 +23,13 @@ const FindProjects = () => {
   dispatch(userListSlice.actions.initUserList(userList));
   dispatch(searchListSlice.actions.searchProjectList(projects));
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     fetchProject().then((res) => {
       setProjects(res);
+      setIsLoading(false);
     });
 
     fetchUserList().then((res) => {
@@ -32,6 +37,6 @@ const FindProjects = () => {
     });
   }, []);
 
-  return <FindProjectSmall />;
+  return <div>{isLoading ? <LoadingSpinner /> : <FindProjectSmall />}</div>;
 };
 export default FindProjects;
