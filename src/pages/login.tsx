@@ -10,6 +10,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { userSlice } from "../redux/UserReducer";
 import { useDispatch } from "react-redux";
 import { userListSlice } from "../redux/UserListReducer";
+import { setErrorMessage, setSuccessMessage } from "../redux/messageReducer";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -20,7 +21,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function Login() {
   const [user, setUser] = useState({});
-  const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -40,7 +40,12 @@ function Login() {
     setUser(data);
     localStorage.setItem("user", JSON.stringify(data));
     dispatch(userSlice.actions.userLogIn(data));
-    respone.status === 200 ? navigate("/", { state: { user } }) : handleClick();
+    if (respone.status === 200) {
+      navigate("/", { state: { user } });
+      dispatch(setSuccessMessage("Login Successfully"));
+    } else {
+      dispatch(setErrorMessage("Login Failed"));
+    }
   };
 
   useEffect(() => {

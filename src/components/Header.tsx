@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { applicationSlice } from "../redux/Application";
 import { applicantSlice } from "../redux/Applicant";
+import { setSuccessMessage } from "../redux/messageReducer";
 
 function Header() {
   const user = useSelector((state: any) => state.user);
@@ -44,7 +45,7 @@ function Header() {
 
   const logout = () => {
     localStorage.removeItem("user");
-
+    dispatch(setSuccessMessage("Log out successfully"));
     navigate("/");
     window.location.reload();
   };

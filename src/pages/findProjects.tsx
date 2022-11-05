@@ -12,8 +12,8 @@ import { userListSlice } from "../redux/UserListReducer";
 import { fetchUserList } from "../utils/functions/fetchUserList";
 import { userSlice } from "../redux/UserReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
-import FindProjectSmall from "../utils/UI/findProjectSmall";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
+import FindProjectSmall from "../utils/UI/findProjectSmall";
 
 const FindProjects = () => {
   const [userList, setUserList] = useState([]);

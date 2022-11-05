@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import "../animation/shine.css";
+import { setSuccessMessage } from "../redux/messageReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 
 function SearchBar() {
@@ -26,6 +27,7 @@ function SearchBar() {
     );
 
     dispatch(searchListSlice.actions.searchProjectList(response.data));
+    dispatch(setSuccessMessage("Search Successfully"));
   };
 
   return (

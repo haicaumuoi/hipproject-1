@@ -4,9 +4,10 @@ import { userSlice } from "./UserReducer";
 import { projectListSlice } from "./ProjectListReducer";
 import { searchListSlice } from "./SearchListReducer";
 import { applicationSlice } from "./Application";
-import { messageSlice } from "./messageReducer";
+import messageSlice from "./messageReducer";
 import { userListSlice } from "./UserListReducer";
 import { applicantSlice } from "./Applicant";
+import loadingSlice from "./LoadingSpinner";
 
 const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
     searchList: searchListSlice.reducer,
     application: applicationSlice.reducer,
     applicant: applicantSlice.reducer,
-    message: messageSlice.reducer,
+    loading: loadingSlice.reducer,
+    message: messageSlice,
   },
 });
 

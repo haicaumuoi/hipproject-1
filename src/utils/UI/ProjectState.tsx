@@ -1,6 +1,9 @@
+import _ from "lodash";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Applicant from "./Applicant";
+import LoadingSpinner from "./LoadingSpinner";
 import Status from "./Status";
 
 interface jobFullProps {
@@ -12,12 +15,25 @@ function ProjectState({ state }: jobFullProps) {
     (state: any) => state.application.application
   );
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const applicantList = useSelector((state: any) => state.applicant.applicant);
+
+  useEffect(() => {
+    if (_.isEmpty(applicationSent) && _.isEmpty(applicantList)) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [applicationSent, applicantList]);
+
   switch (state) {
     case true:
       return (
         <div>
-          {applicantList.length > 0 ? (
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : applicantList.length > 0 ? (
             applicantList.map((item: any) => (
               <Applicant
                 prjName={item.prjName}

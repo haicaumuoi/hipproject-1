@@ -9,6 +9,7 @@ import ProjectDetails from "../pages/projectDetails";
 import Projects from "../pages/Projects";
 import SetProfile from "../pages/setProfile";
 import { userSlice } from "../redux/UserReducer";
+import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import ProtectedRoute from "./ProtectedRoute";
 
 function Main() {
