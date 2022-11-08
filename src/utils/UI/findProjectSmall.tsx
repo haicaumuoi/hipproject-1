@@ -8,6 +8,9 @@ import dateFormat from "../functions/dateFormat";
 
 function FindProjectSmall({ page }: any) {
   const projectList = useSelector((state: any) => state.searchList.searchList);
+
+  const projectListPage = projectList.slice((page - 1) * 6, page * 6);
+
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = React.useState(page);
   const maxPage = Math.ceil(projectList.length / 6);
@@ -26,7 +29,7 @@ function FindProjectSmall({ page }: any) {
       <div className="w-full border-t border-t-gray-400 h-full flex justify-center items-center mt-5 pt-10 flex-col">
         {projectList.length > 0 ? (
           <ul className="w-9/12 h-full flex flex-col items-center xl:w-8/12 justify-center xl:grid xl:grid-cols-2 2xl:grid-cols-3 2xl:w-10/12">
-            {projectList.map((project: any) => (
+            {projectListPage.map((project: any) => (
               <div key={project._id}>
                 <Link to={`/findProject/${project._id}`}>
                   <ProjectCard
