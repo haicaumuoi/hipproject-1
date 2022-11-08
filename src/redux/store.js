@@ -8,6 +8,7 @@ import messageSlice from "./messageReducer";
 import { userListSlice } from "./UserListReducer";
 import { applicantSlice } from "./Applicant";
 import loadingSlice from "./LoadingSpinner";
+import { paginationSlice } from "./PaginationSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     applicant: applicantSlice.reducer,
     loading: loadingSlice.reducer,
     message: messageSlice,
+    pagination: paginationSlice.reducer,
   },
 });
 

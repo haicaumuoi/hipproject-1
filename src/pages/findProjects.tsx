@@ -14,6 +14,7 @@ import { userSlice } from "../redux/UserReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import FindProjectSmall from "../utils/UI/findProjectSmall";
+import { paginationSlice } from "../redux/PaginationSlice";
 
 const FindProjects = () => {
   const [userList, setUserList] = useState([]);
@@ -22,6 +23,8 @@ const FindProjects = () => {
   dispatch(projectListSlice.actions.initProjectList(projects));
   dispatch(userListSlice.actions.initUserList(userList));
   dispatch(searchListSlice.actions.searchProjectList(projects));
+
+  const page = useSelector((state: any) => state.pagination.page);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,6 +40,10 @@ const FindProjects = () => {
     });
   }, []);
 
-  return <div>{isLoading ? <LoadingSpinner /> : <FindProjectSmall />}</div>;
+  return (
+    <div>
+      {isLoading ? <LoadingSpinner /> : <FindProjectSmall page={page} />}
+    </div>
+  );
 };
 export default FindProjects;
