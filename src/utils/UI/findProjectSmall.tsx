@@ -54,10 +54,10 @@ function FindProjectSmall({ page }: any) {
             No Project Avaiable
           </div>
         )}
-        <div className="flex items-center">
+        <div className="flex items-center pt-10">
           {currentPage > 1 ? (
             <div
-              className="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+              className="py-2 px-3 ml-0 leading-tight  bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
               onClick={() => {
                 minusPage(currentPage);
               }}
@@ -65,12 +65,12 @@ function FindProjectSmall({ page }: any) {
               Previous
             </div>
           ) : null}
-          <div className="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ">
+          <div className="py-2 px-3 leading-tight  bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-default">
             {currentPage}
           </div>
           {currentPage < maxPage ? (
             <div
-              className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+              className="py-2 px-3 leading-tight  bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
               onClick={() => {
                 addPage(currentPage);
               }}

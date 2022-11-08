@@ -137,12 +137,14 @@ function JobFull({
             <div className="font-semibold my-2 text-lg">
               Number Of Participants (Max 5)
             </div>
-            <div className="space-y-2 mt-4">
+            <div className="space-y-4 mt-4">
               <div className="flex items-center space-x-2">
-                <Participant
-                  avatar={projectOwner.avatar}
-                  email={projectOwner.email}
-                />
+                <Link to={`/profile/${projectOwner._id}`}>
+                  <Participant
+                    avatar={projectOwner.avatar}
+                    email={projectOwner.email}
+                  />
+                </Link>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -155,7 +157,9 @@ function JobFull({
                 </svg>
               </div>
               {participants?.map((item: any) => (
-                <Participant avatar={item.avatar} email={item.email} />
+                <Link to={`/profile/${item._id}`}>
+                  <Participant avatar={item.avatar} email={item.email} />
+                </Link>
               ))}
             </div>
           </div>

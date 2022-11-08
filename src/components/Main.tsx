@@ -11,6 +11,7 @@ import SetProfile from "../pages/setProfile";
 import { userSlice } from "../redux/UserReducer";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import ProtectedRoute from "./ProtectedRoute";
+import UserProfile from "./UserProfile";
 
 function Main() {
   const location = useLocation();
@@ -28,6 +29,14 @@ function Main() {
           element={
             <ProtectedRoute user={user}>
               <Projects />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/profile/:id"
+          element={
+            <ProtectedRoute user={user}>
+              <UserProfile />
             </ProtectedRoute>
           }
         ></Route>
