@@ -5,13 +5,15 @@ import "../animation/shine.css";
 import { setSuccessMessage } from "../redux/messageReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 import { universities } from "../assets/data/university";
+import { locationList } from "../assets/data/location";
 
 function SearchBar() {
   const dispatch = useDispatch();
 
   const [searchProject, setSearchProject] = useState("");
 
-  const [uniState, setUniState] = useState("apple");
+  const [uniState, setUniState] = useState(universities[0]);
+  const [locationState, setLocationState] = useState(locationList[0]);
   const [descTime, setDescTime] = useState("desc");
 
   const handleSearchProject = (e: any) => {
@@ -36,15 +38,29 @@ function SearchBar() {
     // dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
   };
-  const handleSortTime = async (value: string) => {
-    setDescTime(value);
+  const handleSortLocation = async (value: string) => {
+    setLocationState(value);
     // const response = await axios.get(
     //   `https://hipproback.herokuapp.com/api/prj/search?name=${searchProject}&university=${value}`
     // );
     // dispatch(searchListSlice.actions.searchProjectList(response.data));
-    value === "desc"
-      ? dispatch(setSuccessMessage(`Sort Time by Descending Successfully`))
-      : dispatch(setSuccessMessage(`Sort Time by Ascending Successfully`));
+    dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
+  };
+  const handleSortTime = async (value: string) => {
+    setDescTime(value);
+    if (value === "desc") {
+      const response = await axios.get(
+        `https://hipproback.herokuapp.com/api/prj/sortdesc`
+      );
+      dispatch(searchListSlice.actions.searchProjectList(response.data));
+      dispatch(setSuccessMessage(`Sort Time by Descending Successfully`));
+    } else {
+      const response = await axios.get(
+        `https://hipproback.herokuapp.com/api/prj/sortasc`
+      );
+      dispatch(searchListSlice.actions.searchProjectList(response.data));
+      dispatch(setSuccessMessage(`Sort Time by Ascending Successfully`));
+    }
   };
 
   return (
@@ -64,7 +80,7 @@ function SearchBar() {
         </button>
       </div>
       <div className="inline-grid grid-cols-1 xl:grid-cols-7 gap-5 w-full text-center justify-around content-center">
-        <div className="col-span-3">
+        <div className="col-span-2">
           <select
             className="select select-bordered select-lg w-full max-w-xs"
             value={uniState}
@@ -77,7 +93,20 @@ function SearchBar() {
             ))}
           </select>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
+          <select
+            className="select select-bordered select-lg w-full max-w-xs"
+            value={locationState}
+            onChange={(e) => {
+              handleSortLocation(e.target.value);
+            }}
+          >
+            {locationList.map((location) => (
+              <option value={location}>{location}</option>
+            ))}
+          </select>
+        </div>
+        <div className="col-span-2">
           <select
             className="select select-bordered select-lg w-full max-w-xs"
             value={descTime}

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import { setErrorMessage, setSuccessMessage } from "../redux/messageReducer";
 import { universities } from "../assets/data/university";
+import { locationList } from "../assets/data/location";
 
 function Postjob() {
   const [startDate, setStartDate] = useState(new Date());
@@ -218,14 +219,17 @@ function Postjob() {
             </div>
             <div>
               <h1>Project Location</h1>
-              <input
-                className="font-normal text-base border border-gray-400 rounded-lg h-10 w-full xl:w-11/12 mt-2 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center  xl:col-span-3 focus:shadow-md pl-3"
-                type="text"
-                required
-                placeholder='e.g. "Toronto, ON'
+              <select
+                className="select select-bordered select-lg w-full max-w-xs"
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              >
+                {locationList.map((location) => (
+                  <option value={location}>{location}</option>
+                ))}
+              </select>
             </div>
             <div>
               <h1>Project Duration</h1>
