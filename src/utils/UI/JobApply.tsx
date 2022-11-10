@@ -7,15 +7,17 @@ import ApplyButton from "./ApplyButton";
 import { useState } from "react";
 import { setErrorMessage, setSuccessMessage } from "../../redux/messageReducer";
 import LoadingSpinner from "./LoadingSpinner";
+import Participant from "./Participant";
 
 type Props = {
   role: string;
   skill: string;
   projectId: string | undefined;
   number: number | undefined;
+  expired: boolean;
 };
 
-function JobApply({ role, skill, projectId, number }: Props) {
+function JobApply({ role, skill, projectId, number, expired }: Props) {
   const user = useSelector((state: any) => state.user);
   const userID = user._id;
   const status = "Pending";
@@ -72,23 +74,42 @@ function JobApply({ role, skill, projectId, number }: Props) {
         <LoadingSpinner />
       ) : (
         <>
-          <div className="text-lg mr-5 w-56">Position: {role}</div>
-          <div className="text-lg w-56">{skill}</div>
-          {user.email !== "" ? (
-            number === 4 ? (
-              <AppliedButton />
-            ) : !participant && !applicationPrj && !isApplied ? (
-              <ApplyButton sendApplicationHandle={sendApplicationHandle} />
-            ) : (
-              <AppliedButton />
-            )
-          ) : (
-            <Link to={"/login"}>
-              <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
-                Login To Apply
-              </button>
-            </Link>
+          {expired ? null : (
+            <>
+              <div className="text-lg mr-5 w-56">Position: {role}</div>
+              <div className="text-lg w-56">{skill}</div>
+            </>
           )}
+
+          <>
+            {expired ? null : (
+              <div>
+                {user.email !== "" ? (
+                  number === 4 ? (
+                    <AppliedButton
+                      state="Full Participant"
+                      prompt={"This Project No Longer Accept Application"}
+                    />
+                  ) : !participant && !applicationPrj && !isApplied ? (
+                    <ApplyButton
+                      sendApplicationHandle={sendApplicationHandle}
+                    />
+                  ) : (
+                    <AppliedButton
+                      state="Applied"
+                      prompt={"You Have Already Appled For This Project"}
+                    />
+                  )
+                ) : (
+                  <Link to={"/login"}>
+                    <button className="w-56 xl:w-40 xl:h-10 h-14 bg-blue-800 font-bold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md">
+                      Login To Apply
+                    </button>
+                  </Link>
+                )}
+              </div>
+            )}
+          </>
         </>
       )}
     </div>

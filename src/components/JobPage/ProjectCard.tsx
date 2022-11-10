@@ -23,15 +23,15 @@ function ProjectCard({
   projectField,
   projectSmallDes,
 }: ProjectCardProps) {
-  const [expired, setExpired] = useState(false);
   const now = new Date();
-  console.log(projectEndDate);
-  if (projectEndDate < now) {
-    setExpired(true);
-  }
+  const today = new Date(now.setMonth(now.getMonth() + 1));
+  const projectEndDateFormatted = new Date(projectEndDate);
 
-  return expired ? (
-    <div className="w-80 h-96 flex flex-col justify-evenly items-start mx-5 my-5 cursor-pointer border-gray-400 border rounded-lg px-5 relative hover:shadow-md transition-all xl:h-80 xl:w-[26rem] 2xl:w-[24rem] bg-black">
+  return today > projectEndDateFormatted ? (
+    <div className="w-80 h-96 flex flex-col justify-evenly items-start mx-5 my-5 cursor-pointer border-gray-400 border rounded-lg px-5 relative hover:shadow-md transition-all xl:h-80 xl:w-[26rem] 2xl:w-[24rem] bg-slate-50">
+      <div className="absolute top-1/2 left-1/2 text-6xl -translate-y-1/2 -translate-x-1/2 text-red-700 font-bold p-3 border-red-700 border-y-2 border-x-8 bg-transparent uppercase rotate-12 z-20">
+        expired
+      </div>
       <div className="w-11/12 flex flex-col">
         <div className="font-bold text-xl text-ellipsis overflow-hidden whitespace-nowrap inline-block w-fit hover:border-b hover:border-b-black border-b border-b-transparent my-1">
           {projectName}
@@ -40,7 +40,7 @@ function ProjectCard({
           {projectSmallDes}
         </div>
       </div>
-      <div className="flex w-11/12 xl:w-10/12  h-8 items-center rounded-lg justify-around bg-green-200 text-green-800 font-semibold">
+      <div className="flex w-11/12 xl:w-10/12  h-8 items-center rounded-lg justify-around bg-red-200 text-red-800 font-semibold">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

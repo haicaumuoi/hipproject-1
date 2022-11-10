@@ -20,7 +20,7 @@ interface jobFullProps {
   school: string | undefined;
   city: string | undefined;
   startDate: Date | undefined;
-  endDate: Date | undefined;
+  endDate: Date;
   participants: Array<Object> | undefined;
   userId: string | undefined;
 }
@@ -63,6 +63,11 @@ function JobFull({
   });
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const now = new Date();
+  const today = new Date(now.setMonth(now.getMonth() + 1));
+  const projectEndDateFormatted = new Date(endDate);
+
   return (
     <>
       {isLoading ? (
@@ -120,14 +125,22 @@ function JobFull({
                 skill={item.skill}
                 projectId={projectId}
                 number={participants?.length}
+                expired={today > projectEndDateFormatted}
               />
             ))}
           </div>
         ) : null}
-        <div className="text-lg">
-          This project lasted from {dateFormat(startDate)} to{" "}
-          {dateFormat(endDate)}
-        </div>
+        {today > projectEndDateFormatted ? (
+          <div className="text-lg">
+            This project has expired. You can no longer apply for this
+          </div>
+        ) : (
+          <div className="text-lg">
+            This project lasted from {dateFormat(startDate)} to{" "}
+            {dateFormat(endDate)}
+          </div>
+        )}
+
         <JobDescription desc={desc} />
 
         <div className="font-semibold mb-2 text-lg">School</div>

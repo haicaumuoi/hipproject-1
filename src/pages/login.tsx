@@ -38,6 +38,7 @@ function LogIn() {
     });
     const data = await respone.data.data;
     setUser(data);
+
     localStorage.setItem("user", JSON.stringify(data));
     dispatch(userSlice.actions.userLogIn(data));
     if (respone.status === 200) {
