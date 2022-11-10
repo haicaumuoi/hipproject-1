@@ -64,7 +64,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="w-9/12 h-60 xl:h-40 flex flex-col justify-center">
+    <div className="w-7/12 h-60 xl:h-40 flex flex-col justify-center">
       <div className="inline-grid grid-cols-1 xl:grid-cols-7 gap-5 w-full text-center justify-around content-center">
         <input
           type="text"
@@ -79,10 +79,10 @@ function SearchBar() {
           Find Project
         </button>
       </div>
-      <div className="inline-grid grid-cols-1 xl:grid-cols-7 gap-5 w-full text-center justify-around content-center">
+      <div className="inline-grid grid-cols-1 xl:grid-cols-7 gap-5 w-full text-center justify-around content-center pt-6">
         <div className="col-span-2">
           <select
-            className="select select-bordered select-lg w-full max-w-xs"
+            className="select select-bordered select-lg w-1/2 max-w-xs py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md hover:scale-105 transition-transform font-semibold"
             value={uniState}
             onChange={(e) => {
               handleSortUni(e.target.value);
@@ -95,7 +95,7 @@ function SearchBar() {
         </div>
         <div className="col-span-2">
           <select
-            className="select select-bordered select-lg w-full max-w-xs"
+            className="select select-bordered select-lg w-1/2 max-w-xs py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md hover:scale-105 transition-transform font-semibold"
             value={locationState}
             onChange={(e) => {
               handleSortLocation(e.target.value);
@@ -108,7 +108,7 @@ function SearchBar() {
         </div>
         <div className="col-span-2">
           <select
-            className="select select-bordered select-lg w-full max-w-xs"
+            className="select select-bordered select-lg w-full max-w-xs py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md hover:scale-105 transition-transform font-semibold"
             value={descTime}
             onChange={(e) => {
               handleSortTime(e.target.value);

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
+import AdminDashboard from "../pages/AdminDashboard";
 import FindProjects from "../pages/findProjects";
 import Login from "../pages/login";
 import Notification from "../pages/notification";
@@ -32,6 +34,15 @@ function Main() {
             </ProtectedRoute>
           }
         ></Route>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute user={user}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
+
         <Route
           path="/profile/:id"
           element={
