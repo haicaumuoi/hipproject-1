@@ -1,35 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Project } from "../../../typing";
 import ProjectCard from "../../components/JobPage/ProjectCard";
 import SearchBar from "../../components/SearchBar";
 import { paginationSlice } from "../../redux/PaginationSlice";
+import { projectListSlice } from "../../redux/ProjectListReducer";
+import { searchListSlice } from "../../redux/SearchListReducer";
+import { userListSlice } from "../../redux/UserListReducer";
 import dateFormat from "../functions/dateFormat";
+import { fetchProject } from "../functions/fetchProject";
+import LoadingSpinner from "./LoadingSpinner";
 
 function FindProjectSmall({ page }: any) {
   const projectList = useSelector((state: any) => state.searchList.searchList);
-
-  const projectListPage = projectList.slice((page - 1) * 6, page * 6);
-
   const dispatch = useDispatch();
+
   const [currentPage, setCurrentPage] = React.useState(page);
-  const maxPage = Math.ceil(projectList.length / 6);
+  const maxPage = useSelector((state: any) => state.pagination.maxPage);
+  const [isLoading, setIsLoading] = useState(false);
 
   const addPage = (page: number) => {
     dispatch(paginationSlice.actions.setPagination(currentPage + 1));
-    setCurrentPage(page + 1);
+    setIsLoading(true);
+    fetchProject(page + 1).then((res) => {
+      dispatch(projectListSlice.actions.initProjectList(res.projects));
+    });
+    setCurrentPage(currentPage + 1);
+    setIsLoading(false);
   };
   const minusPage = (page: number) => {
     dispatch(paginationSlice.actions.setPagination(currentPage - 1));
-    setCurrentPage(page - 1);
+    setIsLoading(true);
+    fetchProject(page - 1).then((res) => {
+      dispatch(projectListSlice.actions.initProjectList(res.projects));
+    });
+    setCurrentPage(currentPage - 1);
+    setIsLoading(false);
   };
   return (
     <div className="flex flex-col items-center h-full justify-start">
       <SearchBar />
+      {isLoading ? <LoadingSpinner /> : null}
       <div className="w-full border-t border-t-gray-400 h-full flex justify-center items-center mt-5 pt-10 flex-col">
         {projectList.length > 0 ? (
           <ul className="w-9/12 h-full flex flex-col items-center xl:w-8/12 justify-center xl:grid xl:grid-cols-2 2xl:grid-cols-3 2xl:w-10/12">
-            {projectListPage.map((project: any) => (
+            {projectList.map((project: any) => (
               <div key={project._id}>
                 <Link to={`/findProject/${project._id}`}>
                   <ProjectCard

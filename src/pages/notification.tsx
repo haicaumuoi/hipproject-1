@@ -1,5 +1,6 @@
-import React from 'react';
-import NotFoundNoti from '../components/NotFoundNoti';
+import axios from "axios";
+import React from "react";
+import NotFoundNoti from "../components/NotFoundNoti";
 
 function Notification() {
   return (
@@ -7,8 +8,6 @@ function Notification() {
       <NotFoundNoti />
     </div>
   );
-
-
 }
 
 export default Notification;
