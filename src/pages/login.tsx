@@ -19,7 +19,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function Login() {
+function LogIn() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -113,4 +113,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LogIn;

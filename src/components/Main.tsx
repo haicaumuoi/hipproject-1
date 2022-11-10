@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import AdminDashboard from "../pages/AdminDashboard";
 import FindProjects from "../pages/findProjects";
-import Login from "../pages/login";
 import Notification from "../pages/notification";
 import Postjob from "../pages/postjob";
 import Profile from "../pages/Profile";
@@ -14,6 +13,7 @@ import { userSlice } from "../redux/UserReducer";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import ProtectedRoute from "./ProtectedRoute";
 import UserProfile from "./UserProfile";
+import LogIn from "../pages/login";
 
 function Main() {
   const location = useLocation();
@@ -23,7 +23,7 @@ function Main() {
     <div className="mb-20">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<FindProjects />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<LogIn />}></Route>
         <Route path="/findProject" element={<FindProjects />}></Route>
         <Route path="/findProject/:id" element={<ProjectDetails />}></Route>
         <Route
