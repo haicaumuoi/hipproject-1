@@ -1,15 +1,46 @@
+import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { locationList } from "../assets/data/location";
+import { universities } from "../assets/data/university";
+import { setSuccessMessage } from "../redux/messageReducer";
 import EditIcon from "../utils/UI/EditIcon";
 
 function Profile() {
   const user = useSelector((state: any) => state.user);
   const [showModal, setShowModal] = React.useState(false);
 
-  const handleSubmit = (e: any) => {
+  const dispatch = useDispatch();
+
+  const [name, setName] = React.useState(user?.name);
+  const [phone, setPhone] = React.useState(user?.phone);
+  const [uni, setUni] = React.useState(user?.uni || universities[0]);
+  const [location, setLocation] = React.useState(
+    user?.location || locationList[0]
+  );
+  const [skillSet, setSkills] = React.useState(user?.skills);
+  const [bio, setBio] = React.useState(user?.bio);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const respone = await axios.put(
+      "https://hipproback.herokuapp.com/api/user/update",
+      {
+        name: name,
+        phone: phone,
+        uni: uni,
+        location: location,
+        skillSet: skillSet,
+        bio: bio,
+        avatar: "",
+      }
+    );
+    if (respone.status === 200) {
+      dispatch(setSuccessMessage("Update Profile Successfully"));
+    }
     setShowModal(false);
   };
+
   return (
     <div className="flex justify-center mt-5 ">
       {showModal ? (
@@ -21,7 +52,7 @@ function Profile() {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Post Project Confirmation
+                    Your Profile Confirmation
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -35,18 +66,69 @@ function Profile() {
                 {/*body*/}
                 <div className="relative p-6 flex-col">
                   <p className="my-4 text-gray-600 text-lg">
-                    Set your name: {user.name}
+                    Set your name:{" "}
+                    <input
+                      type="text"
+                      className="border-2 border-gray-300 p-2 rounded-lg ml-2"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </p>
                   <p className="my-4 text-gray-600 text-lg">
-                    Set your location:
+                    Set your phone Number:{" "}
+                    <input
+                      type="text"
+                      className="border-2 border-gray-300 p-2 rounded-lg ml-2"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </p>
+
+                  <div className="col-span-2">
+                    <select
+                      className="w-1/2 max-w-xs py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md hover:scale-105 transition-transform font-semibold"
+                      value={location}
+                      onChange={(e) => {
+                        setLocation(e.target.value);
+                      }}
+                    >
+                      {locationList.map((location) => (
+                        <option value={location}>{location}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="col-span-2">
+                    <select
+                      className="w-1/2 max-w-xs py-2 pl-3 pr-10 text-xl border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md hover:scale-105 transition-transform font-semibold"
+                      value={uni}
+                      onChange={(e) => {
+                        setUni(e.target.value);
+                      }}
+                    >
+                      {universities.map((uni) => (
+                        <option value={uni}>{uni}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <p className="my-4 text-gray-600 text-lg">
+                    Set your skills:
+                    <input
+                      type="text"
+                      value={skillSet}
+                      onChange={(e) => setSkills(e.target.value)}
+                      className="border-2 border-gray-300 p-2 rounded-lg ml-2"
+                    />
                   </p>
 
                   <p className="my-4 text-gray-600 text-lg">
-                    Set your University:
-                  </p>
-
-                  <p className="my-4 text-gray-600 text-lg">
-                    Your light description a bout yourself
+                    Your light description a bout yourself :{" "}
+                    <input
+                      type="text"
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      className="border-2 border-gray-300 p-2 rounded-lg ml-2"
+                    />
                   </p>
                 </div>
                 {/*footer*/}

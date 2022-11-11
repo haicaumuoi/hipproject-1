@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { projectListSlice } from "../redux/ProjectListReducer";
 import Applicant from "../utils/UI/Applicant";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import ProjectDashboard from "./ProjectDashboard";
@@ -12,6 +14,18 @@ function AdminDashboard({}: Props) {
   const projectList = useSelector(
     (state: any) => state.projectList.projectList
   );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsLoading(true);
+    const response = axios
+      .get("https://hipproback.herokuapp.com/api/prj/admingetall")
+      .then((response) => {
+        dispatch(projectListSlice.actions.initProjectList(response.data));
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <div>
       {isLoading ? (
