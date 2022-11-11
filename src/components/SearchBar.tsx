@@ -6,6 +6,7 @@ import { setErrorMessage, setSuccessMessage } from "../redux/messageReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 import { universities } from "../assets/data/university";
 import { locationList } from "../assets/data/location";
+import { paginationSlice } from "../redux/PaginationSlice";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function SearchBar() {
     console.log(response.data);
     dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage("Search Successfully"));
+    dispatch(paginationSlice.actions.setPagination(1));
   };
 
   const handleSortUni = async (value: string) => {
@@ -34,6 +36,7 @@ function SearchBar() {
     console.log(response.data);
     dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
+    dispatch(paginationSlice.actions.setPagination(1));
   };
   const handleSortLocation = async (value: string) => {
     setLocationState(value);
@@ -43,6 +46,7 @@ function SearchBar() {
     console.log(response.data);
     dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
+    dispatch(paginationSlice.actions.setPagination(1));
   };
   const handleSortTime = async (value: string) => {
     setDescTime(value);
@@ -53,7 +57,7 @@ function SearchBar() {
       if (response.status === 200) {
         dispatch(searchListSlice.actions.searchProjectList(response.data));
         dispatch(setSuccessMessage(`Sort Time by Descending Successfully`));
-        console.log(response.data);
+        dispatch(paginationSlice.actions.setPagination(1));
       } else {
         dispatch(setErrorMessage(`Sort Time by Descending Failed`));
       }
@@ -64,7 +68,7 @@ function SearchBar() {
       if (response.status === 200) {
         dispatch(searchListSlice.actions.searchProjectList(response.data));
         dispatch(setSuccessMessage(`Sort Time by Ascending Successfully`));
-        console.log(response.data);
+        dispatch(paginationSlice.actions.setPagination(1));
       } else {
         dispatch(setErrorMessage(`Sort Time by Ascending Failed`));
       }

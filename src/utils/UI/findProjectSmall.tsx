@@ -24,7 +24,7 @@ function FindProjectSmall({ page }: any) {
     dispatch(paginationSlice.actions.setPagination(currentPage + 1));
     setIsLoading(true);
     fetchProject(page + 1).then((res) => {
-      dispatch(projectListSlice.actions.initProjectList(res.projects));
+      dispatch(searchListSlice.actions.searchProjectList(res.projects));
     });
     setCurrentPage(currentPage + 1);
     setIsLoading(false);
@@ -33,7 +33,7 @@ function FindProjectSmall({ page }: any) {
     dispatch(paginationSlice.actions.setPagination(currentPage - 1));
     setIsLoading(true);
     fetchProject(page - 1).then((res) => {
-      dispatch(projectListSlice.actions.initProjectList(res.projects));
+      dispatch(searchListSlice.actions.searchProjectList(res.projects));
     });
     setCurrentPage(currentPage - 1);
     setIsLoading(false);
