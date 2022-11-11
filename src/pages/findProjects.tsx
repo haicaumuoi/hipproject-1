@@ -14,15 +14,15 @@ const FindProjects = () => {
   const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
   dispatch(userListSlice.actions.initUserList(userList));
-  const projects = useSelector((state: any) => state.projectList.projectList);
-  dispatch(searchListSlice.actions.searchProjectList(projects));
+  // const projects = useSelector((state: any) => state.projectList.projectList);
+  // dispatch(searchListSlice.actions.searchProjectList(projects));
 
   const page = useSelector((state: any) => state.pagination.page);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     fetchProject(page).then((res) => {
-      dispatch(projectListSlice.actions.initProjectList(res.projects));
+      dispatch(searchListSlice.actions.searchProjectList(res.projects));
       dispatch(paginationSlice.actions.setMaxPage(res.pages));
     });
     fetchUserList().then((res) => {

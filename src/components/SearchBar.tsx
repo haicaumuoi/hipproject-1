@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import "../animation/shine.css";
-import { setSuccessMessage } from "../redux/messageReducer";
+import { setErrorMessage, setSuccessMessage } from "../redux/messageReducer";
 import { searchListSlice } from "../redux/SearchListReducer";
 import { universities } from "../assets/data/university";
 import { locationList } from "../assets/data/location";
@@ -10,40 +10,38 @@ import { locationList } from "../assets/data/location";
 function SearchBar() {
   const dispatch = useDispatch();
 
-  const [searchProject, setSearchProject] = useState("");
-
-  const [uniState, setUniState] = useState(universities[0]);
-  const [locationState, setLocationState] = useState(locationList[0]);
+  const [uniState, setUniState] = useState("");
+  const [locationState, setLocationState] = useState("");
   const [descTime, setDescTime] = useState("desc");
 
-  const handleSearchProject = (e: any) => {
-    setSearchProject(e.target.value);
-    e.preventDefault();
-  };
-
   const sendSearchText = async () => {
+    const search = document.getElementById("search") as HTMLInputElement;
+    const searchText = search.value;
+    console.log(searchText);
     const response = await axios.get(
-      `https://hipproback.herokuapp.com/api/prj/search?name=${searchProject}`
+      `https://hipproback.herokuapp.com/api/prj/search?name=${searchText}`
     );
-
+    console.log(response.data);
     dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage("Search Successfully"));
   };
 
   const handleSortUni = async (value: string) => {
     setUniState(value);
-    // const response = await axios.get(
-    //   `https://hipproback.herokuapp.com/api/prj/search?name=${searchProject}&university=${value}`
-    // );
-    // dispatch(searchListSlice.actions.searchProjectList(response.data));
+    const response = await axios.get(
+      `https://hipproback.herokuapp.com/api/prj/search?university=${value}`
+    );
+    console.log(response.data);
+    dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
   };
   const handleSortLocation = async (value: string) => {
     setLocationState(value);
-    // const response = await axios.get(
-    //   `https://hipproback.herokuapp.com/api/prj/search?name=${searchProject}&university=${value}`
-    // );
-    // dispatch(searchListSlice.actions.searchProjectList(response.data));
+    const response = await axios.get(
+      `https://hipproback.herokuapp.com/api/prj/search?location=${value}`
+    );
+    console.log(response.data);
+    dispatch(searchListSlice.actions.searchProjectList(response.data));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
   };
   const handleSortTime = async (value: string) => {
@@ -52,14 +50,24 @@ function SearchBar() {
       const response = await axios.get(
         `https://hipproback.herokuapp.com/api/prj/sortdesc`
       );
-      dispatch(searchListSlice.actions.searchProjectList(response.data));
-      dispatch(setSuccessMessage(`Sort Time by Descending Successfully`));
+      if (response.status === 200) {
+        dispatch(searchListSlice.actions.searchProjectList(response.data));
+        dispatch(setSuccessMessage(`Sort Time by Descending Successfully`));
+        console.log(response.data);
+      } else {
+        dispatch(setErrorMessage(`Sort Time by Descending Failed`));
+      }
     } else {
       const response = await axios.get(
         `https://hipproback.herokuapp.com/api/prj/sortasc`
       );
-      dispatch(searchListSlice.actions.searchProjectList(response.data));
-      dispatch(setSuccessMessage(`Sort Time by Ascending Successfully`));
+      if (response.status === 200) {
+        dispatch(searchListSlice.actions.searchProjectList(response.data));
+        dispatch(setSuccessMessage(`Sort Time by Ascending Successfully`));
+        console.log(response.data);
+      } else {
+        dispatch(setErrorMessage(`Sort Time by Ascending Failed`));
+      }
     }
   };
 
@@ -70,7 +78,7 @@ function SearchBar() {
           type="text"
           className="w-full h-12 border border-gray-500 rounded-lg mr-3 pl-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 self-center xl:col-span-6 focus:shadow-md"
           placeholder="Search for projects"
-          onChange={handleSearchProject}
+          id="search"
         />
         <button
           className="w-full xl:w-32 h-12 bg-blue-800 font-semibold text-white rounded-lg p-5 hover:bg-blue-900 transition-all flex justify-center items-center self-center hover:shadow-md shine"
