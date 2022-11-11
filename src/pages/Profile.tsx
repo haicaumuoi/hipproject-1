@@ -26,6 +26,7 @@ function Profile() {
     const respone = await axios.put(
       "https://hipproback.herokuapp.com/api/user/update",
       {
+        userID: user._id,
         name: name,
         phone: phone,
         uni: uni,
