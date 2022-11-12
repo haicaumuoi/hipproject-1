@@ -25,9 +25,7 @@ function JobApply({ role, skill, projectId, number, expired }: Props) {
 
   const dispatch = useDispatch();
 
-  const projectList = useSelector(
-    (state: any) => state.projectList.projectList
-  );
+  const projectList = useSelector((state: any) => state.searchList.searchList);
   const sendApplicationHandle = () => {
     setIsApplied(true);
     handlePostJob();

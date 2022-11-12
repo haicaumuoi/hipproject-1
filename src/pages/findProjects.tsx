@@ -11,22 +11,18 @@ import FindProjectSmall from "../utils/UI/findProjectSmall";
 import { paginationSlice } from "../redux/PaginationSlice";
 
 const FindProjects = () => {
-  const [userList, setUserList] = useState([]);
   const dispatch = useDispatch();
-  dispatch(userListSlice.actions.initUserList(userList));
-  // const projects = useSelector((state: any) => state.projectList.projectList);
-  // dispatch(searchListSlice.actions.searchProjectList(projects));
 
   const page = useSelector((state: any) => state.pagination.page);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
+    fetchUserList().then((res) => {
+      dispatch(userListSlice.actions.initUserList(res));
+    });
     fetchProject(page).then((res) => {
       dispatch(searchListSlice.actions.searchProjectList(res.projects));
       dispatch(paginationSlice.actions.setMaxPage(res.pages));
-    });
-    fetchUserList().then((res) => {
-      setUserList(res);
     });
     setIsLoading(false);
   }, []);

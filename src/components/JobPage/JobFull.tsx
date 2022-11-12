@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setErrorMessage, setSuccessMessage } from "../../redux/messageReducer";
-import { userListSlice } from "../../redux/UserListReducer";
 import dateFormat from "../../utils/functions/dateFormat";
 import JobApply from "../../utils/UI/JobApply";
 import LoadingSpinner from "../../utils/UI/LoadingSpinner";
