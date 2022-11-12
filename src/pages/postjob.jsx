@@ -206,21 +206,26 @@ function Postjob() {
             <div>
               <h1>Project University</h1>
               <select
-                className="select select-bordered select-lg w-full max-w-xs"
+                className="select select-bordered select-lg w-full max-w-xs p-2 my-2 bg-white rounded-lg border border-gray-400 "
                 value={uni}
                 onChange={(e) => {
                   setUni(e.target.value);
                 }}
               >
                 {universities.map((uni) => (
-                  <option value={uni}>{uni}</option>
+                  <option
+                    className="hover:bg-white hover:scale-105"
+                    value={uni}
+                  >
+                    {uni}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
               <h1>Project Location</h1>
               <select
-                className="select select-bordered select-lg w-full max-w-xs"
+                className="select select-bordered select-lg w-full max-w-xs p-2 my-2 bg-white rounded-lg border border-gray-400"
                 value={location}
                 onChange={(e) => {
                   setLocation(e.target.value);

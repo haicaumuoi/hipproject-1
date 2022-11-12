@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { fetchProject } from "../utils/functions/fetchProject";
 
 import { useDispatch, useSelector } from "react-redux";
-import { projectListSlice } from "../redux/ProjectListReducer";
 import { userListSlice } from "../redux/UserListReducer";
 import { fetchUserList } from "../utils/functions/fetchUserList";
 import { searchListSlice } from "../redux/SearchListReducer";

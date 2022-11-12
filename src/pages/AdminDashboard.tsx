@@ -21,7 +21,9 @@ function AdminDashboard({}: Props) {
     const response = axios
       .get("https://hipproback.herokuapp.com/api/prj/admingetall")
       .then((response) => {
-        dispatch(projectListSlice.actions.initProjectList(response.data));
+        dispatch(
+          projectListSlice.actions.initProjectList(response.data.project)
+        );
         setIsLoading(false);
       });
   }, []);

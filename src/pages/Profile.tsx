@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { locationList } from "../assets/data/location";
 import { universities } from "../assets/data/university";
 import { setSuccessMessage } from "../redux/messageReducer";
+import { userSlice } from "../redux/UserReducer";
 import EditIcon from "../utils/UI/EditIcon";
 
 function Profile() {
@@ -161,7 +162,7 @@ function Profile() {
             <img className="rounded-full" src={user.avatar} alt="avatar" />
           </div>
           <div className="flex flex-col space-y-2 pl-5">
-            <h1 className="text-2xl font-bold">Amit Nair</h1>
+            <h1 className="text-2xl font-bold">{user.name}</h1>
             <div className="flex ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -183,9 +184,9 @@ function Profile() {
         <div className="w-full rounded-lg border border-gray-300 h-44 mt-10 pl-3 relative">
           <div className="font-semibold text-lg my-2">Contact Information</div>
           <div className="text-gray-600 space-y-1 pt-2">
-            <div>Armit Nair</div>
+            <div>{user.name}</div>
             <div>{user.email}</div>
-            <div>12345678911</div>
+            <div>0{user.phone}</div>
           </div>
           <button onClick={() => setShowModal(true)}>
             <EditIcon />
@@ -195,22 +196,17 @@ function Profile() {
           <div className="font-semibold text-lg my-2">Personal Information</div>
           <div className="text-gray-600 space-y-1 pt-2">
             <div>Ho Chi Minh City</div>
-            <div>FPT University</div>
-            <div>Front-end Developer</div>
+            <div>{user.uni} University</div>
+            <div>{user.skillset[0]}</div>
           </div>
           <button>
             <EditIcon />
           </button>
         </div>
         <div className="w-full relative rounded-lg border border-gray-300 h-fit pb-5 mt-10 pl-3">
-          <div className="font-semibold text-lg my-2">Project Preferences</div>
+          <div className="font-semibold text-lg my-2">Personal Bio</div>
           <div className="text-gray-600 space-y-1 pt-2 w-10/12">
-            <div>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint
-              harum quasi deleniti blanditiis nihil minus? Vero necessitatibus
-              officia quis illo ullam pariatur dicta quas? Labore nemo
-              exercitationem vitae quas quasi?
-            </div>
+            <div>{user.bio}</div>
           </div>
           <button>
             <EditIcon />
