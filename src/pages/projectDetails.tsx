@@ -6,7 +6,7 @@ import ProjectOwner from "../components/JobPage/ProjectOwner";
 function ProjectDetails() {
   const jobData = useParams();
 
-  const projectList = useSelector((state: any) => state.projectList);
+  const projectList = useSelector((state: any) => state.searchList);
 
   const project = projectList.projectList.find((obj: any) => {
     return obj._id === jobData.id;
