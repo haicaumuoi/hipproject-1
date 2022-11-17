@@ -8,6 +8,7 @@ import "../animation/highlight.css";
 import { setErrorMessage, setSuccessMessage } from "../redux/messageReducer";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import StatusButton from "../utils/UI/StatusButton";
+import { projectListSlice } from "../redux/ProjectListReducer";
 
 type Props = {
   prjName: string;
@@ -46,12 +47,16 @@ function ProjectDashboard({
         }
       );
       setIsLoading(false);
-      response.status === 200
-        ? dispatch(setSuccessMessage("Accept Project Successfully"))
-        : dispatch(setErrorMessage("Accept Project Failed"));
+      if (response.status === 200) {
+        dispatch(setSuccessMessage("Accept Project Successfully"));
+        dispatch(projectListSlice.actions.setProjectStatus(response.data));
+        console.log(response.data);
+      } else {
+        dispatch(setErrorMessage("Accept Project Failed"));
+      }
     } else {
       const response = await axios.put(
-        "https://hipproback.herokuapp.com/api/decline",
+        "https://hipproback.herokuapp.com/api/prj/decline",
         {
           data: statusData,
         }
@@ -74,7 +79,7 @@ function ProjectDashboard({
           </Link>
           <Link
             to={`/profile/${projectOwner}`}
-            className="flex items-center justify-between"
+            className="flex items-center justify-start"
           >
             <img
               className="w-10 h-10 rounded-full mr-3"

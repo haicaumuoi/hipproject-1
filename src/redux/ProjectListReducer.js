@@ -22,5 +22,11 @@ export const projectListSlice = createSlice({
         .find((project) => project._id === action.payload.projectId)
         .applications.push(action.payload.application);
     },
+    setProjectStatus: (state, action) => {
+      state.projectList =
+        state.projectList.find(
+          (project) => project._id === action.payload.projectId
+        ).status === action.payload.status;
+    },
   },
 });

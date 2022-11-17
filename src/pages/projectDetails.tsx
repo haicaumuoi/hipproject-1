@@ -6,9 +6,9 @@ import ProjectOwner from "../components/JobPage/ProjectOwner";
 function ProjectDetails() {
   const jobData = useParams();
 
-  const searchList = useSelector((state: any) => state.searchList);
+  const searchList = useSelector((state: any) => state.projectList);
 
-  const project = searchList.searchList.find((obj: any) => {
+  const project = searchList.projectList.find((obj: any) => {
     return obj._id === jobData.id;
   });
 
@@ -16,8 +16,10 @@ function ProjectDetails() {
     <div className="flex flex-col items-center h-full justify-start">
       <div className="w-full border-t border-t-gray-200 h-full flex justify-center">
         <div className="w-9/12 h-full flex justify-between mt-5 pt-10">
+          <ProjectOwner projectOwnerID={project?.userID} />
           <JobFull
             userId={project?.userID}
+            objective={project?.shortDesc}
             projectId={project?._id}
             jobName={project?.name}
             school={project?.uni}
@@ -29,7 +31,6 @@ function ProjectDetails() {
             endDate={project?.endDate}
             participants={project?.participants}
           />
-          <ProjectOwner projectOwnerID={project?.userID} />
         </div>
       </div>
     </div>

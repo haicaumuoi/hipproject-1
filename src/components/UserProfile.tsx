@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import EditIcon from "../utils/UI/EditIcon";
+import LoadingSpinner from "../utils/UI/LoadingSpinner";
 
 type Props = {};
 
@@ -9,7 +10,9 @@ function UserProfile() {
   const userData = useParams();
 
   const userList = useSelector((state: any) => state.userList.userList);
-
+  const [userProject, setUserProject] = React.useState(
+    useSelector((state: any) => state.user.project)
+  );
   const user = userList.find((obj: any) => {
     return obj._id === userData.id;
   });
@@ -63,6 +66,32 @@ function UserProfile() {
             <div>{user.bio}</div>
           </div>
         </div>
+      </div>
+      <div className="h-fit w-1/3 border-gray-300 rounded-xl border mt-20">
+        <div className="text-center text-xl font-semibold p-4 mb-4">
+          User's Projects
+        </div>
+        {userProject === null ? (
+          <div>
+            <LoadingSpinner />
+          </div>
+        ) : (
+          userProject?.map((project: any) => (
+            <div className="flex justify-around my-4">
+              <div className="font-semibold text-xl">{project.name}</div>
+              <div className="flex items-center">
+                <Link to={`/findProject/${project._id}`}>
+                  <button
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                  >
+                    View Project
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

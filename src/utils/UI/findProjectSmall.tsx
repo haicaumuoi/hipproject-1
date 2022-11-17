@@ -25,21 +25,19 @@ function FindProjectSmall({ page }: any) {
     setIsLoading(true);
     fetchProject(page + 1).then((res) => {
       dispatch(searchListSlice.actions.searchProjectList(res.projects));
+      setIsLoading(false);
+      setCurrentPage(currentPage + 1);
     });
-    setCurrentPage(currentPage + 1);
-    setIsLoading(false);
   };
   const minusPage = (page: number) => {
     dispatch(paginationSlice.actions.setPagination(currentPage - 1));
     setIsLoading(true);
     fetchProject(page - 1).then((res) => {
       dispatch(searchListSlice.actions.searchProjectList(res.projects));
+      setCurrentPage(currentPage - 1);
+      setIsLoading(false);
     });
-    setCurrentPage(currentPage - 1);
-    setIsLoading(false);
   };
-
-  console.log(projectList);
 
   return (
     <div className="flex flex-col items-center h-full justify-start">

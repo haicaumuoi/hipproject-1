@@ -8,6 +8,8 @@ import { searchListSlice } from "../redux/SearchListReducer";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
 import FindProjectSmall from "../utils/UI/findProjectSmall";
 import { paginationSlice } from "../redux/PaginationSlice";
+import axios from "axios";
+import { projectListSlice } from "../redux/ProjectListReducer";
 
 const FindProjects = () => {
   const dispatch = useDispatch();
@@ -19,11 +21,19 @@ const FindProjects = () => {
     fetchUserList().then((res) => {
       dispatch(userListSlice.actions.initUserList(res));
     });
+    const allprj = axios
+      .get("https://hipproback.herokuapp.com/api/prj/admingetall")
+      .then((response) => {
+        dispatch(
+          projectListSlice.actions.initProjectList(response.data.project)
+        );
+      });
+
     fetchProject(page).then((res) => {
       dispatch(searchListSlice.actions.searchProjectList(res.projects));
       dispatch(paginationSlice.actions.setMaxPage(res.pages));
+      setIsLoading(false);
     });
-    setIsLoading(false);
   }, []);
 
   return (

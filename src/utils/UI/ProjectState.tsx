@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Applicant from "./Applicant";
 import LoadingSpinner from "./LoadingSpinner";
+import ProjectCreated from "./ProjectCreated";
 import Status from "./Status";
 
 interface jobFullProps {
@@ -79,7 +80,7 @@ function ProjectState({ state }: jobFullProps) {
         </div>
       );
     default:
-      return <div>View Project</div>;
+      return <ProjectCreated />;
   }
 }
 
