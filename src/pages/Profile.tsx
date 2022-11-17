@@ -1,15 +1,19 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { locationList } from "../assets/data/location";
 import { universities } from "../assets/data/university";
 import { setSuccessMessage } from "../redux/messageReducer";
 import { userSlice } from "../redux/UserReducer";
 import EditIcon from "../utils/UI/EditIcon";
+import LoadingSpinner from "../utils/UI/LoadingSpinner";
 
 function Profile() {
   const user = useSelector((state: any) => state.user);
   const [showModal, setShowModal] = React.useState(false);
+  const [userProject, setUserProject] = React.useState(
+    useSelector((state: any) => state.user.project)
+  );
 
   const dispatch = useDispatch();
 
@@ -21,6 +25,14 @@ function Profile() {
   );
   const [skillSet, setSkills] = React.useState(user?.skills);
   const [bio, setBio] = React.useState(user?.bio);
+
+  useEffect(() => {
+    const response = axios
+      .get(`https://hipproback.herokuapp.com/api/prj/getbyuser?id=${user._id}`)
+      .then((res) => {
+        dispatch(userSlice.actions.setUserProject(res.data.projects));
+      });
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -212,6 +224,17 @@ function Profile() {
             <EditIcon />
           </button>
         </div>
+      </div>
+      <div>
+        {userProject === null ? (
+          <div>
+            <LoadingSpinner />
+          </div>
+        ) : (
+          userProject?.map((project: any) => (
+            <div className="bg-red-900">{project.name}</div>
+          ))
+        )}
       </div>
     </div>
   );

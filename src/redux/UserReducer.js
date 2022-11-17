@@ -12,6 +12,7 @@ export const userSlice = createSlice({
     uni: "",
     location: "",
     bio: "",
+    project: [],
   },
   reducers: {
     userLogIn: (state, action) => {
@@ -24,6 +25,10 @@ export const userSlice = createSlice({
       state.uni = action.payload.uni;
       state.bio = action.payload.bio;
       state.location = action.payload.location;
+      state.project = action.payload.project;
+    },
+    setUserProject: (state, action) => {
+      state.project = action.payload;
     },
   },
 });

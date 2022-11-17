@@ -30,6 +30,18 @@ function AdminDashboard({}: Props) {
 
   return (
     <div>
+      <div className="flex items-center px-10 my-5 justify-between">
+        <div className="w-1/4 font-semibold text-lg">Project Name</div>
+        <div className="w-1/4 font-semibold text-lg pl-8">Project Owner</div>
+        <div className="flex items-center w-1/2 justify-end">
+          <div className="w-1/4 font-semibold text-lg text-end">
+            Project Status
+          </div>
+          <div className="w-1/4 font-semibold text-lg text-center px-32">
+            Action
+          </div>
+        </div>
+      </div>
       {isLoading ? (
         <LoadingSpinner />
       ) : projectList.length > 0 ? (
@@ -40,6 +52,7 @@ function AdminDashboard({}: Props) {
             endDate={item.endDate}
             projectOwner={item.userID}
             projectId={item._id}
+            status={item.status}
           />
         ))
       ) : (

@@ -11,8 +11,8 @@ import { paginationSlice } from "../redux/PaginationSlice";
 function SearchBar() {
   const dispatch = useDispatch();
 
-  const [uniState, setUniState] = useState("");
-  const [locationState, setLocationState] = useState("");
+  const [uniState, setUniState] = useState(universities[0]);
+  const [locationState, setLocationState] = useState(locationList[0]);
   const [descTime, setDescTime] = useState("desc");
 
   const sendSearchText = async () => {
@@ -20,31 +20,33 @@ function SearchBar() {
     const searchText = search.value;
     console.log(searchText);
     const response = await axios.get(
-      `https://hipproback.herokuapp.com/api/prj/search?name=${searchText}`
+      `https://hipproback.herokuapp.com/api/prj/searchname?name=${searchText}`
     );
-    console.log(response.data);
-    dispatch(searchListSlice.actions.searchProjectList(response.data));
+    dispatch(searchListSlice.actions.searchProjectList(response.data.project));
     dispatch(setSuccessMessage("Search Successfully"));
     dispatch(paginationSlice.actions.setPagination(1));
   };
 
   const handleSortUni = async (value: string) => {
     setUniState(value);
+    const search = document.getElementById("search") as HTMLInputElement;
+    const searchText = search.value;
     const response = await axios.get(
-      `https://hipproback.herokuapp.com/api/prj/search?university=${value}`
+      `https://hipproback.herokuapp.com/api/prj/search?university=${value}&location=${locationState}`
     );
-    console.log(response.data);
-    dispatch(searchListSlice.actions.searchProjectList(response.data));
+    dispatch(searchListSlice.actions.searchProjectList(response.data.project));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
     dispatch(paginationSlice.actions.setPagination(1));
   };
   const handleSortLocation = async (value: string) => {
     setLocationState(value);
+    const search = document.getElementById("search") as HTMLInputElement;
+    const searchText = search.value;
     const response = await axios.get(
-      `https://hipproback.herokuapp.com/api/prj/search?location=${value}`
+      `https://hipproback.herokuapp.com/api/prj/search?location=${value}&university=${uniState}`
     );
-    console.log(response.data);
-    dispatch(searchListSlice.actions.searchProjectList(response.data));
+
+    dispatch(searchListSlice.actions.searchProjectList(response.data.project));
     dispatch(setSuccessMessage(`Sort By ${value} Successfully`));
     dispatch(paginationSlice.actions.setPagination(1));
   };

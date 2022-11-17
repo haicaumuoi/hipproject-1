@@ -7,7 +7,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import Status from "./Status";
 
 interface jobFullProps {
-  state: boolean;
+  state: string;
 }
 
 function ProjectState({ state }: jobFullProps) {
@@ -28,7 +28,7 @@ function ProjectState({ state }: jobFullProps) {
   }, [applicationSent, applicantList]);
 
   switch (state) {
-    case true:
+    case "applicationRecieved":
       return (
         <div>
           {isLoading ? (
@@ -50,7 +50,7 @@ function ProjectState({ state }: jobFullProps) {
           )}
         </div>
       );
-    default:
+    case "applicationSent":
       return (
         <div>
           {applicationSent.length > 0 ? (
@@ -78,6 +78,8 @@ function ProjectState({ state }: jobFullProps) {
           )}
         </div>
       );
+    default:
+      return <div>View Project</div>;
   }
 }
 
