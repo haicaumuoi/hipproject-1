@@ -184,7 +184,7 @@ function JobFull({
               </div>
             ) : (
               <div className="flex items-center overflow-visible">
-                <Participant avatar={user.avatar} email={user.email} />
+                There are {participants?.length} participant(s)
               </div>
             )}
           </div>
