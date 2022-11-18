@@ -38,9 +38,9 @@ function LogIn() {
     });
     const data = await respone.data.data;
     setUser(data);
-
     localStorage.setItem("user", JSON.stringify(data));
     dispatch(userSlice.actions.userLogIn(data));
+    dispatch(userSlice.actions.setUserProject(respone.data.project));
     if (respone.status === 200) {
       navigate("/", { state: { user } });
       dispatch(setSuccessMessage("Login Successfully"));

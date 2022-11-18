@@ -30,5 +30,13 @@ export const userSlice = createSlice({
     setUserProject: (state, action) => {
       state.project = action.payload;
     },
+    updateUser: (state, action) => {
+      state.skillset = action.payload.skillset;
+      state.name = action.payload.name;
+      state.phone = action.payload.phone;
+      state.uni = action.payload.uni;
+      state.bio = action.payload.bio;
+      state.location = action.payload.location;
+    },
   },
 });

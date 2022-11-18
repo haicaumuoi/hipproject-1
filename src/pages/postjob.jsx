@@ -87,9 +87,9 @@ function Postjob() {
       data: dataReturn,
     });
     setIsLoading(false);
-    respone.status === 200
+    respone.status === 201
       ? dispatch(setSuccessMessage("Post Project Successfully"))
-      : dispatch(setErrorMessage("POst Project Failed"));
+      : dispatch(setErrorMessage("Post Project Failed"));
     setShowModal(false);
     navigate("/");
   };

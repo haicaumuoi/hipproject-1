@@ -20,21 +20,11 @@ function ProjectState({ state }: jobFullProps) {
 
   const applicantList = useSelector((state: any) => state.applicant.applicant);
 
-  useEffect(() => {
-    if (_.isEmpty(applicationSent) && _.isEmpty(applicantList)) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [applicationSent, applicantList]);
-
   switch (state) {
     case "applicationRecieved":
       return (
         <div>
-          {isLoading ? (
-            <LoadingSpinner />
-          ) : applicantList.length > 0 ? (
+          {applicantList.length > 0 ? (
             applicantList.map((item: any) => (
               <Applicant
                 prjName={item.prjName}
@@ -45,7 +35,7 @@ function ProjectState({ state }: jobFullProps) {
               />
             ))
           ) : (
-            <div className="w-full h-20 shadow-sm flex justify-center px-10 my-5 items-center font-bold text-2xl">
+            <div className="w-full h-56 shadow-sm flex justify-center px-10 my-5 items-center font-bold text-2xl">
               No Applicant Avaiable
             </div>
           )}
@@ -73,7 +63,7 @@ function ProjectState({ state }: jobFullProps) {
               </div>
             ))
           ) : (
-            <div className="w-full h-20 shadow-sm flex justify-center px-10 my-5 items-center font-bold text-2xl">
+            <div className="w-full h-56 shadow-sm flex justify-center px-10 my-5 items-center font-bold text-2xl">
               No Application Sent
             </div>
           )}

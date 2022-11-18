@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { locationList } from "../assets/data/location";
 import { universities } from "../assets/data/university";
 import { setSuccessMessage } from "../redux/messageReducer";
+import { userListSlice } from "../redux/UserListReducer";
 import { userSlice } from "../redux/UserReducer";
 import EditIcon from "../utils/UI/EditIcon";
 import LoadingSpinner from "../utils/UI/LoadingSpinner";
@@ -52,6 +53,7 @@ function Profile() {
     );
     if (respone.status === 200) {
       dispatch(setSuccessMessage("Update Profile Successfully"));
+      dispatch(userSlice.actions.updateUser(respone.data.user));
     }
     setShowModal(false);
   };
